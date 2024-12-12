@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+header {
+    background-color: #333;
+    padding: 1rem;
+    text-align: center;
+}
+  
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+}
+  
+nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+}
+  
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #f4f4f4;
+}
+  
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+  
+.project-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    width: 300px;
+}
+  
+.project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+  

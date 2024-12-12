@@ -1,0 +1,73 @@
+
+  .contact-section {
+    background-color: #C64B00;
+    color: #fff;
+    padding: 4rem 2rem;
+    height: 100vh; /* Ocupa toda la pantalla */
+    display: flex;
+    justify-content: center; /* Centra el contenido */
+    align-items: center; /* Centra el contenido verticalmente */
+    box-sizing: border-box; /* Incluye el padding en el cálculo de la altura */
+  }
+  
+  .contact-container {
+    max-width: 800px;
+    width: 100%; /* Asegura que el contenedor sea flexible */
+    text-align: left;
+  }
+  
+  .contact-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 1px solid #d5a67a;
+    width: 80px;
+    margin: 1rem 0;
+  }
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .icon {
+    font-size: 2rem;
+    background-color: #fff;
+    color: #a34d2d;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #d5a67a;
+    margin: 0;
+  }
+  
+  .value {
+    font-size: 1rem;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .contact-info {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }

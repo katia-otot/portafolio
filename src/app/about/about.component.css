@@ -1,0 +1,23 @@
+.about {
+    padding: 40px;
+    display: flex; /* Para centrar contenido */
+    flex-direction: column; /* Para apilar texto verticalmente */
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    height: 100vh; /* Altura de la pantalla */
+    background-color: #f8f4ec; /* Fondo acorde al diseño */
+    scroll-snap-align: start; /* Alineación con snap scrolling */
+  }
+
+  .about h2 {
+    font-size: 32px;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+
+  .about p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    text-align: center; /* Centrar el texto */
+  }
