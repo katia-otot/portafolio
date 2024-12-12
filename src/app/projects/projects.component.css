@@ -1,67 +1,58 @@
+.gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .gallery-container {
-    text-align: center;
-    padding: 2rem;
-    height: 100vh; /* Ocupar toda la pantalla */
-    display: flex; /* Centrar contenido vertical y horizontalmente */
-    flex-direction: column; /* Alinear texto y la galería */
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box; /* Incluir padding en el cálculo de altura */
-  }
-  
-  .gallery-container h1 {
-    font-size: 2rem;
-    color: #C64B00;
-    margin-bottom: 1rem;
-  }
-  
-  .gallery-container p {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-    gap: 1.5rem;
-    max-width: 1200px;
-    width: 100%; /* Asegura que no desborde en pantallas pequeñas */
-  }
-  
-  .gallery-item {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  .gallery-item p {
-    font-size: 0.9rem;
-    margin: 0.5rem;
-    padding: 0 1rem;
-  }
-  
-  .gallery-item:hover {
-    transform: translateY(-5px);
-  }
-  
-  @media (max-width: 768px) {
-    .gallery-grid {
-      grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .gallery-grid {
-      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-    }
-  }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.project-details {
+  padding: 15px;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.tech-badge {
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.project-links a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
