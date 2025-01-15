@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { Project } from './project.interface';
 @Component({
   selector: 'app-projects',
@@ -14,7 +13,7 @@ export class ProjectsComponent {
     {
       title: 'Proyecto de MAPA LOCAL POR LA MEMORIA',
       description: 'Aplicación web para mostrar recorridos que se pueden hacer para visitar los sitios de memoria locales',
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'assets/mapa.png',
       technologies: ['JavaScript', 'CSS', 'HTML'],
       githubLink: 'https://github.com/katia-otot/mapa',
       demoLink: 'https://mapamemoria.netlify.app/'

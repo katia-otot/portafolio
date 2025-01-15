@@ -51,4 +51,11 @@ body {
     background-color: #A13D00;
   }
 
- 
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .btn {
+    cursor: pointer;
+    /* Agrega aquí más estilos para tu botón */
+  }
