@@ -11,12 +11,20 @@ import { Project } from './project.interface';
 export class ProjectsComponent {
   projects: Project[] = [
     {
-      title: 'Proyecto de MAPA LOCAL POR LA MEMORIA',
+      title: 'MAPA LOCAL POR LA MEMORIA',
       description: 'Aplicación web para mostrar recorridos que se pueden hacer para visitar los sitios de memoria locales',
       imageUrl: 'assets/mapa.png',
       technologies: ['JavaScript', 'CSS', 'HTML'],
       githubLink: 'https://github.com/katia-otot/mapa',
       demoLink: 'https://mapamemoria.netlify.app/'
+    },
+    {
+      title: 'PORTAFOLIO',
+      description: 'Mi portafolio personal',
+      imageUrl: 'assets/portafolio.png',
+      technologies: ['Typescript', 'Angular', 'CSS', 'HTML'],
+      githubLink: 'https://github.com/katia-otot/portafolio',
+      demoLink: 'https://portafoliokatiagadea.netlify.app/'
     },
   ];
 }
