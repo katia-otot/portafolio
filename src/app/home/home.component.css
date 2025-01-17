@@ -1,19 +1,33 @@
 body {
     font-family: 'Times New Roman', serif;
-    margin: 0;
-    padding: 0;
     background-color: #F5F5F5;
-    scroll-behavior: smooth; /* Para un desplazamiento suave */
-    overflow-y: hidden; /* Opcional: Evita desplazamiento accidental */
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  main {
+    width: 100%;
+  }
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
   }
 
-  .container {
+  .content-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
   }
+
+
 
   .logo {
     width: 100px;
@@ -21,21 +35,47 @@ body {
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8dGV4dCB4PSI1MCIgeT0iNjgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNTAiIGZpbGw9IiNDNjRCMDAiIGZvbnQtZmFtaWx5PSJUaW1lcyBOZXcgUm9tYW4sIHNlcmlmIj5LRzwvdGV4dD4KPC9zdmc+Cg==');
     background-size: contain;
     background-repeat: no-repeat;
-    margin-bottom: 40px;
+    margin: 0 auto 2rem;
   }
 
   h1 {
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: normal;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   p {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #555;
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
   }
 
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+    }
+  }
+
+  .btn-custom {
+    background-color: #C64B00;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1.125rem;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-custom:hover {
+    background-color: #A13D00;
+    color: #fff;
+  }
+  
   a.btn {
     display: inline-block;
     background-color: #C64B00;
@@ -51,11 +91,5 @@ body {
     background-color: #A13D00;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
+
   
-  .btn {
-    cursor: pointer;
-    /* Agrega aquí más estilos para tu botón */
-  }

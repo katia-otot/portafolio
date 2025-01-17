@@ -7,16 +7,23 @@
   <title>Katia Gadea - Web Developer</title>
 </head>
 <body>
-  <div class="container">
-    <div class="logo"></div>
-    <h1>Hola, soy Katia Gadea</h1>
-    <p>Desarrolladora Web Full Stack</p>
-    <a (click)="scrollToContact()" class="btn">Contráctame</a>
+  <main>
+    <section class="hero-section">
+      <div class="container">
+        <div class="content-wrapper">
 
-   
-  </div>
+          <div class="logo"></div>
+          <h1>Hola, soy Katia Gadea</h1>
+          <p>Desarrolladora Web Full Stack</p>
+          <a (click)="scrollToContact()" class="btn">Contráctame</a>
+
+        </div>
+      </div>
+    </section>
+  
   <app-about></app-about>
   <app-projects></app-projects>
   <app-contact #contact></app-contact>
+  </main>
 </body>
 </html>
