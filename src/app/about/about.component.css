@@ -4,10 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
+  padding: 1rem;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
+}
 
+@media (min-width: 768px) {
+  .about-container {
+    padding: 2rem 0;
+  }
 }
 
 /* Animaciones para las figuras */
@@ -51,8 +57,8 @@
 .about-container::before {
   content: '';
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
   background: rgba(198, 75, 0, 0.1);
   border-radius: 50%;
   top: 10%;
@@ -60,12 +66,17 @@
   z-index: 0;
   animation: float 6s ease-in-out infinite;
 }
-
+@media (min-width: 768px) {
+  .about-container::before {
+    width: 200px;
+    height: 200px;
+  }
+}
 .about-container::after {
   content: '';
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   background: rgba(198, 75, 0, 0.08);
   border-radius: 15px;
   bottom: 15%;
@@ -74,7 +85,12 @@
   z-index: 0;
   animation: floatReverse 8s ease-in-out infinite;
 }
-
+@media (min-width: 768px) {
+  .about-container::after {
+    width: 150px;
+    height: 150px;
+  }
+}
 /* Triángulo decorativo */
 .triangle-decorator {
   position: absolute;
@@ -90,26 +106,35 @@
   animation: floatTriangle 7s ease-in-out infinite;
 }
 
-/* Asegurar que la tarjeta esté por encima de las decoraciones */
 .about-card {
   position: relative;
   z-index: 1;
   background: linear-gradient(145deg, #ffffff, #f8f9fa);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 800px;
+  max-width:  90%;
   margin: auto;
   border: 1px solid rgba(255, 255, 255, 0.8);
-  padding: 3rem;
+  padding: 1.5rem;
 }
-
+@media (min-width: 768px) {
+  .about-card {
+    max-width: 800px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+}
 .about-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 25px  rgba(0, 0, 0, 0.12);
 }
-
+@media (min-width: 768px) {
+  .about-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  }
+}
 .about-header {
   text-align: center;
   width: 100%;
@@ -117,40 +142,73 @@
 
 .about-header h2 {
   font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
+  font-size:  1.8rem;
   color: #2c3e50;
   text-align: center;
   letter-spacing: -0.5px;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .about-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .accent-line {
-  height: 4px;
-  width: 60px;
+  height: 3px;
+  width: 50px;
   background: #C64B00;
   border-radius: 2px;
-  margin: 1rem auto;
+  margin:  0.75rem auto;
 }
-
+@media (min-width: 768px) {
+  .accent-line {
+    height: 4px;
+    width: 60px;
+    margin: 1rem auto;
+  }
+}
 .about-content {
-  max-width: 90%;
-  margin: 2rem auto;
+  max-width: 100%;
+  margin: 1rem auto;
   text-align: center;
 }
-
+@media (min-width: 768px) {
+  .about-content {
+    max-width: 90%;
+    margin: 2rem auto;
+  }
+}
 .about-content p {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   font-family: 'Inter', sans-serif;
   color: #505965;
   text-align: center;
+  font-size: 0.9rem;
 }
-
+@media (min-width: 768px) {
+  .about-content p {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+}
 .about-content p:last-child {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .about-content p:last-child {
+    margin-bottom: 1.5rem;
+  }
+}
+/* Custom responsive text sizes */
+.fs-md-5 {
+  font-size: 1rem !important;
 }
 
-/* Aseguramos que el contenedor ocupe al menos toda la altura de la ventana */
-.min-vh-100 {
-  min-height: 100vh;
+@media (min-width: 768px) {
+  .fs-md-5 {
+    font-size: 1.25rem !important;
+  }
 }

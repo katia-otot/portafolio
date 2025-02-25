@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -64,4 +64,17 @@ nav a.active {
     align-items: center;
     gap: 1rem;
 }
+  /* Ajustamos la visualización en dispositivos móviles */
+@media (max-width: 767px) {
+  .hero {
+      padding: 2rem 1rem;
+  }
   
+  .icon {
+      font-size: 1.5rem;
+  }
+  
+  .info-item {
+      gap: 0.5rem;
+  }
+}
