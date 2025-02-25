@@ -25,7 +25,7 @@ nav {
 html, body {
     height: 100%; /* Asegura que el body ocupe toda la altura */
     margin: 0; /* Elimina márgenes por defecto */
-    overflow: hidden; /* Evita el desplazamiento en el cuerpo */
+
 }
 
 .router-outlet {
