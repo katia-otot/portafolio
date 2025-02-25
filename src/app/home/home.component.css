@@ -121,12 +121,20 @@ body {
   }
 
   @media (max-width: 768px) {
+    .hero-section {
+      padding: 1rem;
+    }
+
     h1 {
       font-size: 2rem;
     }
     
     p {
-      font-size: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .btn-custom {
+      width: 100%;
     }
   }
 
