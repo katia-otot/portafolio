@@ -1,9 +1,9 @@
-<div class="gallery-container h-100">
-  <h1 class="project-title">Galería de proyectos</h1>
-  <p class="project-description">Estos son algunos de los proyectos en los que he trabajado</p>
-  <div class="gallery-grid">
-    <div *ngFor="let project of projects" class="gallery-item">
-      <img [src]="project.imageUrl" [alt]="project.title">
+<div class="gallery-container h-100 p-4">
+  <h1 class="project-title text-center">Galería de proyectos</h1>
+  <p class="project-description text-center">Estos son algunos de los proyectos en los que he trabajado</p>
+  <div class="gallery-grid row">
+    <div *ngFor="let project of projects" class="gallery-item col-12 col-md-6 col-lg-4 mb-4">
+      <img [src]="project.imageUrl" [alt]="project.title" class="img-fluid">
       <div class="project-details">
         <h3>{{ project.title }}</h3>
         <p>{{ project.description }}</p>
