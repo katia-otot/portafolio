@@ -1,24 +1,156 @@
-.about {
-    padding: 40px;
-    display: flex; /* Para centrar contenido */
-    flex-direction: column; /* Para apilar texto verticalmente */
-    justify-content: center; /* Centrado vertical */
-    align-items: center; /* Centrado horizontal */
-    height: 100vh; /* Altura de la pantalla */
-    background-color: #f8f4ec; /* Fondo acorde al diseño */
-    scroll-snap-align: start; /* Alineación con snap scrolling */
-  }
+.about-container {
+  background-color: #f8f4ec;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
 
-  .about h2 {
-    color: #C64B00;
-    text-align: center; /* Centrar el texto */
+/* Animaciones para las figuras */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
   }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
 
-  .about p {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.6;
-    text-align: center;
-    max-width: 800px; /* Añadimos un ancho máximo */
-    margin: 0 auto; /* Centramos el párrafo */
+@keyframes floatReverse {
+  0% {
+    transform: translateY(0px) rotate(45deg);
   }
+  50% {
+    transform: translateY(20px) rotate(40deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+}
+
+@keyframes floatTriangle {
+  0% {
+    transform: translateY(0px) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-15deg);
+  }
+}
+
+/* Figuras geométricas decorativas */
+.about-container::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(198, 75, 0, 0.1);
+  border-radius: 50%;
+  top: 10%;
+  left: 5%;
+  z-index: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.about-container::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(198, 75, 0, 0.08);
+  border-radius: 15px;
+  bottom: 15%;
+  right: 10%;
+  transform: rotate(45deg);
+  z-index: 0;
+  animation: floatReverse 8s ease-in-out infinite;
+}
+
+/* Triángulo decorativo */
+.triangle-decorator {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-style: solid;
+  border-width: 0 90px 180px 90px;
+  border-color: transparent transparent rgba(198, 75, 0, 0.05) transparent;
+  top: 60%;
+  left: 15%;
+  transform: rotate(-15deg);
+  z-index: 0;
+  animation: floatTriangle 7s ease-in-out infinite;
+}
+
+/* Asegurar que la tarjeta esté por encima de las decoraciones */
+.about-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 3rem;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.about-header {
+  text-align: center;
+  width: 100%;
+}
+
+.about-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  letter-spacing: -0.5px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.accent-line {
+  height: 4px;
+  width: 60px;
+  background: #C64B00;
+  border-radius: 2px;
+  margin: 1rem auto;
+}
+
+.about-content {
+  max-width: 90%;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.about-content p {
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #505965;
+  text-align: center;
+}
+
+.about-content p:last-child {
+  margin-bottom: 1.5rem;
+}
+
+/* Aseguramos que el contenedor ocupe al menos toda la altura de la ventana */
+.min-vh-100 {
+  min-height: 100vh;
+}

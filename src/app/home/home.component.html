@@ -1,29 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katia Gadea - Web Developer</title>
-</head>
-<body>
-  <main>
-    <section class="hero-section">
-      <div class="container">
-        <div class="content-wrapper">
+<div class="fullpage-container">
+  <div class="geometric-background">
+    <div class="shape circle"></div>
+    <div class="shape triangle"></div>
+    <div class="shape square"></div>
+    <div class="shape rectangle"></div>
+    <div class="shape circle"></div>
+    <div class="shape triangle"></div>
+  </div>
 
-          <div class="logo"></div>
-          <h1>Hola, soy Katia Gadea</h1>
-          <p>Desarrolladora Web Full Stack</p>
-          <a (click)="scrollToContact()" class="btn">Contactame</a>
-
-        </div>
+  <section class="section hero-section" id="home">
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="logo"></div>
+        <h1>Hola, soy Katia Gadea</h1>
+        <p>Desarrolladora Web Full Stack</p>
+        <a (click)="scrollToContact()" class="btn">Contactame</a>
       </div>
-    </section>
-  
-  <app-about></app-about>
-  <app-projects></app-projects>
-  <app-contact #contact></app-contact>
-  </main>
-</body>
-</html>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <app-about></app-about>
+  </section>
+
+  <section class="section" id="projects">
+    <app-projects></app-projects>
+  </section>
+
+  <section class="section" id="contact">
+    <app-contact #contact></app-contact>
+  </section>
+</div>

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ElementRef, AfterViewInit  } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from '../about/about.component'; 
 import { ProjectsComponent } from '../projects/projects.component';
 import { ContactComponent } from '../contact/contact.component';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,25 +16,51 @@ import { ContactComponent } from '../contact/contact.component';
     ContactComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('contact') contactSection!: ElementRef;
+  private sections: HTMLElement[] = [];
+  private currentSectionIndex = 0;
+  private isScrolling = false;
+  private scrollTimeout: any;
+
+  ngOnInit() {
+    // Inicialización básica
+  }
 
   ngAfterViewInit() {
-    console.log('Contact section:', this.contactSection);
+    this.sections = Array.from(document.querySelectorAll('.section'));
+    this.setupScrollListener();
+  }
+
+  private setupScrollListener() {
+    window.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      
+      if (this.isScrolling) return;
+      
+      const direction = event.deltaY > 0 ? 1 : -1;
+      this.scrollToSection(this.currentSectionIndex + direction);
+    }, { passive: false });
+  }
+
+  private scrollToSection(index: number) {
+    if (index < 0 || index >= this.sections.length || this.isScrolling) return;
+
+    this.isScrolling = true;
+    this.currentSectionIndex = index;
+
+    this.sections[index].scrollIntoView({ behavior: 'smooth' });
+
+    // Prevenir múltiples scrolls mientras está animando
+    clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+      this.isScrolling = false;
+    }, 1000);
   }
 
   scrollToContact() {
-    console.log('Button clicked');
-    const element = document.querySelector('app-contact');
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    } else {
-      console.log('Contact section not found');
-    }
+    this.scrollToSection(this.sections.length - 1);
   }
 }

@@ -11,7 +11,7 @@ import { Project } from './project.interface';
 export class ProjectsComponent {
   projects: Project[] = [
     {
-      title: 'MAPA LOCAL POR LA MEMORIA',
+      title: 'Mapa local por la memoria',
       description: 'Aplicación web para mostrar recorridos que se pueden hacer para visitar los sitios de memoria locales',
       imageUrl: 'assets/mapa.png',
       technologies: ['JavaScript', 'CSS', 'HTML'],
@@ -19,7 +19,7 @@ export class ProjectsComponent {
       demoLink: 'https://mapamemoria.netlify.app/'
     },
     {
-      title: 'PORTAFOLIO',
+      title: 'Portafolio',
       description: 'Mi portafolio personal',
       imageUrl: 'assets/portafolio.png',
       technologies: ['Typescript', 'Angular', 'CSS', 'HTML'],
