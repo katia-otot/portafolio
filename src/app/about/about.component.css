@@ -18,5 +18,7 @@
     font-size: 18px;
     color: #555;
     line-height: 1.6;
-    text-align: center; /* Centrar el texto */
+    text-align: center;
+    max-width: 800px; /* Añadimos un ancho máximo */
+    margin: 0 auto; /* Centramos el párrafo */
   }
