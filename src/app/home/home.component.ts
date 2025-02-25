@@ -37,22 +37,41 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private setupScrollListener() {
-    window.addEventListener('wheel', (event) => {
-      if (this.isMobile) {
-        // Si es móvil, no hacer scroll suave
-        event.preventDefault();
-        const direction = event.deltaY > 0 ? 1 : -1;
-        this.scrollToSection(this.currentSectionIndex + direction);
-      } else {
-        // Si no es móvil, permitir scroll suave
+    if (this.isMobile) {
+      // Manejar el desplazamiento en dispositivos móviles
+      let startY: number;
+
+      window.addEventListener('touchstart', (event) => {
+        startY = event.touches[0].clientY; // Guardar la posición inicial del toque
+      });
+
+      window.addEventListener('touchmove', (event) => {
+        const currentY = event.touches[0].clientY; // Obtener la posición actual del toque
+        const direction = startY - currentY; // Calcular la dirección del desplazamiento
+
+        if (Math.abs(direction) > 30) { // Umbral para evitar desplazamientos accidentales
+          event.preventDefault(); // Prevenir el comportamiento predeterminado
+
+          if (direction > 0) {
+            // Desplazamiento hacia abajo
+            this.scrollToSection(this.currentSectionIndex + 1);
+          } else {
+            // Desplazamiento hacia arriba
+            this.scrollToSection(this.currentSectionIndex - 1);
+          }
+        }
+      });
+    } else {
+      // Manejar el desplazamiento en dispositivos de escritorio
+      window.addEventListener('wheel', (event) => {
         event.preventDefault();
         
         if (this.isScrolling) return;
         
         const direction = event.deltaY > 0 ? 1 : -1;
         this.scrollToSection(this.currentSectionIndex + direction);
-      }
-    }, { passive: false });
+      }, { passive: false });
+    }
   }
 
   private scrollToSection(index: number) {
