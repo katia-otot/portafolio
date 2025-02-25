@@ -38,7 +38,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   private scrollToSection(index: number) {
-    if (index < 0 || index >= this.sections.length || this.isScrolling) return;
+    // Se elimina la lógica de desplazamiento a otras secciones
+    // if (index < 0 || index >= this.sections.length || this.isScrolling) return;
 
     this.isScrolling = true;
     this.currentSectionIndex = index;
@@ -54,6 +55,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   scrollToContact() {
-    this.scrollToSection(this.sections.length - 1);
+    // Solo se desplaza a la sección de contacto
+    this.isScrolling = true;
+    this.currentSectionIndex = this.sections.length - 1;
+    this.sections[this.currentSectionIndex].scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth' });
+    this.isScrolling = false;
   }
 }
