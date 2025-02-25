@@ -50,3 +50,18 @@ nav a.active {
     border-radius: 8px;
 }
   
+.icon {
+    font-size: 2rem;
+    color: #a34d2d;
+}
+  
+.contact-section {
+    background-color: #ffffff;
+}
+  
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+  

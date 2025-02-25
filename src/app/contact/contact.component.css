@@ -1,73 +1,182 @@
+.contact-section {
+  background-color: #f8f4ec; 
+  color: #333; /* Color de texto igual al de About */
+  padding: 4rem 2rem;
+  height: 100vh; /* Ocupa toda la pantalla */
+  display: flex;
+  justify-content: center; /* Centra el contenido */
+  align-items: center; /* Centra el contenido verticalmente */
+  box-sizing: border-box; /* Incluye el padding en el cálculo de la altura */
+}
 
-  .contact-section {
-    background-color: #C64B00;
-    color: #fff;
-    padding: 4rem 2rem;
-    height: 100vh; /* Ocupa toda la pantalla */
-    display: flex;
-    justify-content: center; /* Centra el contenido */
-    align-items: center; /* Centra el contenido verticalmente */
-    box-sizing: border-box; /* Incluye el padding en el cálculo de la altura */
-  }
-  
-  .contact-container {
-    max-width: 800px;
-    width: 100%; /* Asegura que el contenedor sea flexible */
-    text-align: left;
-  }
-  
-  .contact-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .divider {
-    border: none;
-    border-top: 1px solid #d5a67a;
-    width: 80px;
-    margin: 1rem 0;
-  }
-  
+.contact-container {
+  max-width: 800px;
+  width: 100%; /* Asegura que el contenedor sea flexible */
+  text-align: center; /* Cambiar a center para centrar el título */
+  margin-bottom: 2rem; /* Agregar margen inferior para separar del siguiente contenido */
+  background-color: #f8f4ec; /* Cambia este valor al color de fondo que se utiliza en about.component.html */
+}
+
+.contact-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem; /* Aumentar el margen inferior para más espacio */
+}
+
+.divider {
+  border: none;
+  height: 4px; /* Grosor igual a accent-line */
+  width: 60px; /* Ancho igual a accent-line */
+  background: #C64B00; /* Color igual a accent-line */
+  border-radius: 2px; /* Bordes redondeados igual a accent-line */
+  margin: 2rem auto; /* Aumentar el margen para más espacio arriba y abajo */
+  display: block; /* Asegúrate de que sea un bloque para centrar */
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column; /* Mantener en columna para pantallas pequeñas */
+  align-items: center; /* Centrar el contenido horizontalmente */
+  gap: 4rem; /* Aumentar el espacio entre los elementos */
+  margin-top: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem; /* Agregar margen inferior para separar los items */
+}
+
+.icon {
+  font-size: 2rem;
+  color: #C64B00; /* Color igual al botón "Contáctame" */
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: normal; /* Cambiar a normal si es diferente en About */
+  text-transform: none; /* Cambiar a none si es diferente en About */
+  color: #333; /* Color de texto igual al de About */
+  margin: 0;
+}
+
+.value {
+  font-size: 1rem;
+  color: #333; /* Color de texto igual al de About */
+  margin: 0;
+}
+
+@media (min-width: 768px) {
   .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
+    flex-direction: row; /* Cambiar a fila para pantallas más grandes */
+    justify-content: center; /* Centrar el contenido horizontalmente en fila */
   }
-  
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .icon {
-    font-size: 2rem;
-    background-color: #fff;
-    color: #a34d2d;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-  }
+}
 
-  .label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #d5a67a;
-    margin: 0;
+/* Figuras geométricas decorativas */
+.contact-section::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(198, 75, 0, 0.1);
+  border-radius: 50%;
+  top: 10%;
+  left: 5%;
+  z-index: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.contact-section::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(198, 75, 0, 0.08);
+  border-radius: 15px;
+  bottom: 15%;
+  right: 10%;
+  transform: rotate(45deg);
+  z-index: 0;
+  animation: floatReverse 8s ease-in-out infinite;
+}
+
+/* Nueva figura decorativa adicional 1 */
+.contact-section .additional-decorator-1 {
+  content: '';
+  position: absolute;
+  width: 120px; /* Ajusta el tamaño según sea necesario */
+  height: 120px; /* Ajusta el tamaño según sea necesario */
+  background: rgba(198, 75, 0, 0.1); /* Mismo color que las otras figuras */
+  border-radius: 50%; /* Forma circular */
+  top: 50%; /* Posición desde la parte superior */
+  right: 20%; /* Posición desde la derecha */
+  z-index: 0; /* Asegura que esté detrás del contenido */
+  animation: float 6s ease-in-out infinite; /* Animación similar a las otras figuras */
+}
+
+/* Nueva figura decorativa adicional 2 */
+.contact-section .additional-decorator-2 {
+  content: '';
+  position: absolute;
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: 100px; /* Ajusta el tamaño según sea necesario */
+  background: rgba(198, 75, 0, 0.1); /* Mismo color que las otras figuras */
+  border-radius: 50%; /* Forma circular */
+  top: 20%; /* Posición desde la parte superior */
+  left: 15%; /* Posición desde la izquierda */
+  z-index: 0; /* Asegura que esté detrás del contenido */
+  animation: float 6s ease-in-out infinite; /* Animación similar a las otras figuras */
+}
+
+/* Triángulo decorativo */
+.triangle-decorator {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-style: solid;
+  border-width: 0 90px 180px 90px;
+  border-color: transparent transparent rgba(198, 75, 0, 0.05) transparent;
+  top: 60%;
+  left: 15%;
+  transform: rotate(-15deg);
+  z-index: 0;
+  animation: floatTriangle 7s ease-in-out infinite;
+}
+
+/* Animaciones para las figuras */
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
   }
-  
-  .value {
-    font-size: 1rem;
-    margin: 0;
+  50% {
+    transform: translateY(-20px) rotate(5deg);
   }
-  @media (min-width: 768px) {
-    .contact-info {
-      flex-direction: row;
-      justify-content: space-between;
-    }
+  100% {
+    transform: translateY(0px) rotate(0deg);
   }
+}
+
+@keyframes floatReverse {
+  0% {
+    transform: translateY(0px) rotate(45deg);
+  }
+  50% {
+    transform: translateY(20px) rotate(40deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+}
+
+@keyframes floatTriangle {
+  0% {
+    transform: translateY(0px) rotate(-15deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-15deg);
+  }
+}

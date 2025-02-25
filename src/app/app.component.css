@@ -21,3 +21,25 @@ nav {
     font-weight: bold;
     font-size: 1.5rem;
   }
+
+html, body {
+    height: 100%; /* Asegura que el body ocupe toda la altura */
+    margin: 0; /* Elimina márgenes por defecto */
+}
+
+.router-outlet {
+    min-height: calc(100vh - 60px); /* Ajusta la altura del contenido para que no cubra el footer */
+}
+
+footer {
+    position: fixed; /* Fija el footer en la parte inferior */
+    bottom: 0; /* Alinea el footer al fondo */
+    left: 0; /* Alinea el footer a la izquierda */
+    right: 0; /* Alinea el footer a la derecha */
+    height: 60px; /* Ajusta la altura del footer según sea necesario */
+    color: rgba(51, 51, 51, 0.7); /* Color del texto con opacidad (gris fuerte) */
+    background-color: rgba(240, 240, 240, 0.8); /* Color de fondo con opacidad (gris claro) */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+}

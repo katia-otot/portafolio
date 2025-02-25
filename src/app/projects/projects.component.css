@@ -60,27 +60,31 @@
 
 .project-links {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
   padding-bottom: 10px;
 }
 
 .project-links a {
   text-decoration: none;
-  color: #007bff;
+  color: #333;
   font-weight: bold;
 }
+
 .card {
   transition: transform 0.3s ease;
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .card:hover {
   transform: translateY(-5px);
 }
+
 .tech-stack {
   margin: 1rem 0 2rem 0;
 }
+
 .btn {
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -88,20 +92,25 @@
   transition: all 0.3s ease;
 }
 
+.btn-outline-dark {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #333;
+  margin-right: 10px;
+}
+
 .btn-outline-dark:hover {
-  background-color: #24292e;
-  color: white;
+  background-color: #f0f0f0;
 }
 
 .btn-primary {
   background-color: transparent;
-  border: 1px solid #0d6efd;
-  color: #0d6efd;
+  color: #333;
+  border: 1px solid #333;
 }
 
 .btn-primary:hover {
-  background-color: #0d6efd;
-  color: white;
+  background-color: #f0f0f0;
 }
 
 .card-img-top {
@@ -125,4 +134,9 @@
   font-size: 1.2rem; /* Ajusta según el estilo de about */
   color: #666; /* Cambia al color que se use en about */
   text-align: center; /* Asegura que el texto esté centrado */
+}
+
+footer {
+    color: #ffffff; /* Cambia el color a blanco, por ejemplo */
+    background-color: #000000; /* Opcional: agrega un fondo para mejor contraste */
 }
