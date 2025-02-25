@@ -1,7 +1,7 @@
 .gallery-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,10 +140,4 @@
 footer {
     color: #ffffff; /* Cambia el color a blanco, por ejemplo */
     background-color: #000000; /* Opcional: agrega un fondo para mejor contraste */
-}
-
-@media (max-width: 768px) {
-  .gallery-item {
-    margin-bottom: 20px;
-  }
 }

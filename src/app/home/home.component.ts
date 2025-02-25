@@ -24,9 +24,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private currentSectionIndex = 0;
   private isScrolling = false;
   private scrollTimeout: any;
+  private isMobile: boolean = false;
 
   ngOnInit() {
     // Inicialización básica
+    this.isMobile = window.innerWidth < 768; // Inicializar isMobile
   }
 
   ngAfterViewInit() {
@@ -36,12 +38,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private setupScrollListener() {
     window.addEventListener('wheel', (event) => {
-      event.preventDefault();
-      
-      if (this.isScrolling) return;
-      
-      const direction = event.deltaY > 0 ? 1 : -1;
-      this.scrollToSection(this.currentSectionIndex + direction);
+      if (this.isMobile) {
+        // Si es móvil, no hacer scroll suave
+        event.preventDefault();
+        const direction = event.deltaY > 0 ? 1 : -1;
+        this.scrollToSection(this.currentSectionIndex + direction);
+      } else {
+        // Si no es móvil, permitir scroll suave
+        event.preventDefault();
+        
+        if (this.isScrolling) return;
+        
+        const direction = event.deltaY > 0 ? 1 : -1;
+        this.scrollToSection(this.currentSectionIndex + direction);
+      }
     }, { passive: false });
   }
 
@@ -51,7 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.isScrolling = true;
     this.currentSectionIndex = index;
 
-    this.sections[index].scrollIntoView({ behavior: 'smooth' });
+    this.sections[index].scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth' }); // Usar this.isMobile
 
     // Prevenir múltiples scrolls mientras está animando
     clearTimeout(this.scrollTimeout);
