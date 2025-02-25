@@ -13,4 +13,5 @@ export class AppComponent {
     throw new Error('Method not implemented.');
   }
 
+  // Se puede agregar un método para manejar el desplazamiento si es necesario
 }

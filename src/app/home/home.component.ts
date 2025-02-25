@@ -80,7 +80,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.isScrolling = true;
     this.currentSectionIndex = index;
 
-    this.sections[index].scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth' }); // Usar this.isMobile
+    // Cambiar el comportamiento de desplazamiento a 'auto' para dispositivos móviles
+    this.sections[index].scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth' });
 
     // Prevenir múltiples scrolls mientras está animando
     clearTimeout(this.scrollTimeout);
