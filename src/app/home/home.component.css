@@ -235,3 +235,11 @@ body {
   }
 }
   
+
+.btn-primary {
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+}
