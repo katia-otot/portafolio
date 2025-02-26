@@ -8,6 +8,7 @@
   box-sizing: border-box; 
   position: relative;
   overflow: hidden;
+  margin-top: 130px;
 }
 
 .contact-container {
