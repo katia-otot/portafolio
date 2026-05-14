@@ -1,0 +1,35 @@
+<div class="skills-root">
+  <div class="skills-inner">
+    <header class="skills-header text-center">
+      <span class="eyebrow">Stack</span>
+      <h2 class="skills-title">Habilidades técnicas</h2>
+      <div class="accent-line"></div>
+      <p class="skills-lead">
+        Herramientas y tecnologías que uso en productos web, mobile y backend.
+      </p>
+    </header>
+
+    <div class="skills-grid">
+      @for (group of groups; track group.title) {
+        <article class="skill-card">
+          <div class="skill-card-head">
+            <span class="icon-wrap" aria-hidden="true">
+              <i [class]="'fas ' + group.icon"></i>
+            </span>
+            <h3 class="group-title">{{ group.title }}</h3>
+          </div>
+          <div class="chips">
+            @for (skill of group.items; track skill) {
+              <span class="chip">{{ skill }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <p class="languages-note text-center">
+      <i class="fas fa-language me-2" aria-hidden="true"></i>
+      <strong>Idiomas:</strong> Inglés A1, lectura técnica.
+    </p>
+  </div>
+</div>

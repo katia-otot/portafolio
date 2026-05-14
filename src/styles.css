@@ -1,80 +1,169 @@
+/* =============================================================================
+   Paleta del portafolio — usar siempre estas variables en CSS nuevo.
+   ============================================================================= */
+:root {
+  /* Marca (naranja principal del sitio) */
+  --color-primary: #c64b00;
+  --color-primary-hover: #a13d00;
+  --color-primary-rgb: 198, 75, 0;
+
+  /* Acentos (gradientes, highlights) */
+  --color-accent-warm: #e8703a;
+  --color-accent-salmon: #ff9f7a;
+  --color-accent-coral: #ff8a5c;
+  --color-accent-gold: #ffb347;
+
+  /* Texto */
+  --color-text: #2c3e50;
+  --color-text-secondary: #3d4f5f;
+  --color-text-muted: #505965;
+  --color-text-soft: #5a6570;
+  --color-text-body: #555555;
+  --color-text-dark: #333333;
+  --color-text-inverse: #ffffff;
+
+  /* Superficies */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f5f5;
+  --color-surface-warm: #f8f4ec;
+  --color-surface-warm-top: #fffefb;
+  --color-surface-warm-bottom: #f0ebe3;
+  --color-surface-card: #faf8f5;
+  --color-surface-muted-strong: #f9f9f9;
+  --color-surface-neutral: #f0f0f0;
+  --color-text-placeholder: #666666;
+
+  /* Formas decorativas (hero) */
+  --color-shape-pink: #ffd6e0;
+  --color-shape-mint: #c1ffd7;
+  --color-shape-mint-rgb: 193, 255, 215;
+  --color-shape-seafoam: #b5ead7;
+  --color-shape-sage: #e2f0cb;
+  --color-accent-blush: rgba(255, 182, 193, 0.9);
+
+  /* Secciones oscuras (p. ej. experiencia) */
+  --color-ink: #1a1f2e;
+  --color-ink-mid: #252b3d;
+  --color-ink-deep: #2c2235;
+
+  /* Neutros UI */
+  --color-border-light: #dddddd;
+  --color-border-subtle: rgba(44, 62, 80, 0.08);
+  --color-border-primary-soft: rgba(var(--color-primary-rgb), 0.1);
+  --color-border-primary-medium: rgba(var(--color-primary-rgb), 0.15);
+  --color-border-primary-strong: rgba(var(--color-primary-rgb), 0.35);
+  --color-shadow-soft: rgba(0, 0, 0, 0.04);
+  --color-shadow-card: rgba(44, 62, 80, 0.06);
+  --color-shadow-card-hover: rgba(var(--color-primary-rgb), 0.12);
+  --color-shadow-brand: rgba(var(--color-primary-rgb), 0.35);
+  --color-shadow-dark: rgba(0, 0, 0, 0.35);
+  --color-overlay-nav: rgba(255, 255, 255, 0.88);
+  --color-ink-rgb: 44, 62, 80;
+
+  /* Bootstrap 5: alinear “primary” con la marca (botones, etc.) */
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: var(--color-primary-rgb);
+}
+
+/* Botón primario: naranja de marca (sobreescribe el azul por defecto de Bootstrap) */
+.btn.btn-primary {
+  --bs-btn-color: var(--color-text-inverse);
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-color: var(--color-text-inverse);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-hover);
+  --bs-btn-active-color: var(--color-text-inverse);
+  --bs-btn-active-bg: var(--color-primary-hover);
+  --bs-btn-active-border-color: var(--color-primary-hover);
+  --bs-btn-disabled-color: var(--color-text-inverse);
+  --bs-btn-disabled-bg: var(--color-primary);
+  --bs-btn-disabled-border-color: var(--color-primary);
+  border: none;
+  box-shadow: none;
+}
+
+.btn.btn-primary:focus-visible {
+  box-shadow: 0 0 0 0.25rem rgba(var(--color-primary-rgb), 0.35);
+}
+
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-  
+
 header {
-    background-color: #333;
-    padding: 1rem;
-    text-align: center;
+  background-color: #333333;
+  padding: 1rem;
+  text-align: center;
 }
-  
+
 nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 1rem;
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  margin: 0 1rem;
 }
-  
+
 nav a.active {
-    font-weight: bold;
-    border-bottom: 2px solid #fff;
+  font-weight: bold;
+  border-bottom: 2px solid var(--color-text-inverse);
 }
-  
+
 .hero {
-    text-align: center;
-    padding: 4rem 1rem;
-    background-color: #f4f4f4;
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--color-surface-muted);
 }
-  
+
 .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
 }
-  
+
 .project-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 1rem;
-    padding: 1rem;
-    text-align: center;
-    width: 300px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  width: 300px;
 }
-  
+
 .project-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
-  
+
 .icon {
-    font-size: 2rem;
-    color: #a34d2d;
+  font-size: 2rem;
+  color: var(--color-primary);
 }
-  
+
 .contact-section {
-    background-color: #ffffff;
+  background-color: var(--color-surface);
 }
-  
+
 .info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-  /* Ajustamos la visualización en dispositivos móviles */
+
 @media (max-width: 767px) {
   .hero {
-      padding: 2rem 1rem;
+    padding: 2rem 1rem;
   }
-  
+
   .icon {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
-  
+
   .info-item {
-      gap: 0.5rem;
+    gap: 0.5rem;
   }
 }

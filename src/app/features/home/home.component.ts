@@ -1,15 +1,19 @@
 
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AboutComponent } from '../about/about.component'; 
+import { AboutComponent } from '../about/about.component';
 import { ProjectsComponent } from '../projects/projects.component';
 import { ContactComponent } from '../contact/contact.component';
+import { ExperienceComponent } from '../experience/experience.component';
+import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
     selector: 'app-home',
     imports: [
     RouterModule,
     AboutComponent,
+    ExperienceComponent,
+    SkillsComponent,
     ProjectsComponent,
     ContactComponent
 ],
@@ -53,10 +57,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   scrollToContact() {
-    // Solo se desplaza a la sección de contacto
-    this.isScrolling = true;
-    this.currentSectionIndex = this.sections.length - 1;
-    this.sections[this.currentSectionIndex].scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth' });
-    this.isScrolling = false;
+    this.scrollToId('contact');
+  }
+
+  scrollToId(fragment: string): void {
+    this.isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const el = document.getElementById(fragment);
+    if (el) {
+      el.scrollIntoView({ behavior: this.isMobile ? 'auto' : 'smooth', block: 'start' });
+    }
   }
 }

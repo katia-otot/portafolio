@@ -1,0 +1,35 @@
+<div class="experience-root">
+  <div class="experience-inner">
+    <header class="experience-header text-center">
+      <span class="eyebrow">Trayectoria</span>
+      <h2 class="experience-title">Experiencia laboral</h2>
+      <div class="accent-line"></div>
+      <p class="experience-lead">
+        Roles recientes donde integré frontend, mobile, backend, datos y servicios cloud.
+      </p>
+    </header>
+
+    <div class="timeline">
+      @for (job of experiences; track job.company + job.period) {
+        <article class="timeline-card">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <div class="timeline-body">
+            <div class="timeline-meta">
+              <span class="period-badge">{{ job.period }}</span>
+            </div>
+            <h3 class="role-title">{{ job.role }}</h3>
+            <p class="company-name">
+              <i class="fas fa-building me-2" aria-hidden="true"></i>{{ job.company }}
+            </p>
+            <p class="role-summary">{{ job.summary }}</p>
+            <ul class="highlights">
+              @for (item of job.bullets; track item.text) {
+                <li>{{ item.text }}</li>
+              }
+            </ul>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</div>

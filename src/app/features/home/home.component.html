@@ -1,4 +1,15 @@
 <div class="fullpage-container">
+  <nav class="portfolio-nav" aria-label="Secciones del portafolio">
+    <button type="button" class="nav-brand" (click)="scrollToId('home')">KG</button>
+    <div class="nav-links">
+      <button type="button" (click)="scrollToId('about')">Sobre mí</button>
+      <button type="button" (click)="scrollToId('experience')">Experiencia</button>
+      <button type="button" (click)="scrollToId('skills')">Habilidades</button>
+      <button type="button" (click)="scrollToId('projects')">Proyectos</button>
+      <button type="button" class="nav-cta" (click)="scrollToId('contact')">Contacto</button>
+    </div>
+  </nav>
+
   <div class="geometric-background">
     <div class="shape circle d-none d-md-block"></div>
     <div class="shape triangle d-none d-md-block"></div>
@@ -12,15 +23,28 @@
     <div class="container px-3 px-md-5">
       <div class="content-wrapper text-center">
         <div class="logo mb-3 mb-md-4"></div>
-        <h1 class="display-5 display-md-4 mb-2 mb-md-3">Hola, soy Katia Gadea</h1>
-        <p class="lead mb-3 mb-md-4">Desarrolladora Full-Stack Web & Mobile</p>
-        <a (click)="scrollToContact()" class="btn btn-primary px-3 px-md-4 py-2 py-md-3">Contactame</a>
+        <h1 class="display-5 display-md-4 mb-2 mb-md-3 hero-headline">Hola, soy Katia Gadea</h1>
+        <p class="lead mb-2 mb-md-3 hero-tagline">Desarrolladora Full-Stack · Web &amp; Mobile</p>
+        <p class="hero-sub text-muted mb-3 mb-md-4">
+          Productos claros, código mantenible y foco en la experiencia de usuario.
+        </p>
+        <button type="button" class="btn btn-primary px-3 px-md-4 py-2 py-md-3" (click)="scrollToContact()">
+          Contactame
+        </button>
       </div>
     </div>
   </section>
 
   <section class="section" id="about">
     <app-about></app-about>
+  </section>
+
+  <section class="section" id="experience">
+    <app-experience></app-experience>
+  </section>
+
+  <section class="section" id="skills">
+    <app-skills></app-skills>
   </section>
 
   <section class="section" id="projects">

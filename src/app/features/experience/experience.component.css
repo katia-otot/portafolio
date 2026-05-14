@@ -1,0 +1,200 @@
+.experience-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 1rem 3rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    165deg,
+    var(--color-ink) 0%,
+    var(--color-ink-mid) 45%,
+    var(--color-ink-deep) 100%
+  );
+}
+
+.experience-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(var(--color-primary-rgb), 0.18),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(var(--color-shape-mint-rgb), 0.08),
+      transparent 40%
+    );
+  pointer-events: none;
+}
+
+.experience-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 880px;
+}
+
+.experience-header {
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-blush);
+  margin-bottom: 0.5rem;
+}
+
+.experience-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  color: var(--color-text-inverse);
+  margin: 0 0 0.75rem;
+}
+
+.accent-line {
+  height: 4px;
+  width: 56px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent-coral));
+  border-radius: 4px;
+  margin: 0 auto 1rem;
+}
+
+.experience-lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+@media (min-width: 576px) {
+  .timeline {
+    padding-left: 1.25rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+.timeline-card {
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+.timeline-marker {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .timeline-marker {
+    display: block;
+    position: absolute;
+    left: -1.5rem;
+    top: 1.35rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent-gold));
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.25);
+    transform: translateX(-50%);
+  }
+}
+
+.timeline-body {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .timeline-body {
+    padding: 2rem 2rem 1.75rem;
+  }
+}
+
+.timeline-body:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px var(--color-shadow-dark);
+  border-color: var(--color-border-primary-strong);
+}
+
+.timeline-meta {
+  margin-bottom: 0.75rem;
+}
+
+.period-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  background: linear-gradient(90deg, var(--color-shape-pink), var(--color-shape-mint));
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.role-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-inverse);
+  margin: 0 0 0.35rem;
+}
+
+@media (min-width: 768px) {
+  .role-title {
+    font-size: 1.45rem;
+  }
+}
+
+.company-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 200, 170, 0.95);
+  margin: 0 0 1rem;
+}
+
+.role-summary {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 1rem;
+}
+
+.highlights {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.highlights li {
+  margin-bottom: 0.55rem;
+}
+
+.highlights li::marker {
+  color: var(--color-primary);
+}
