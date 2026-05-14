@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from '../about/about.component'; 
@@ -6,17 +6,15 @@ import { ProjectsComponent } from '../projects/projects.component';
 import { ContactComponent } from '../contact/contact.component';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule, 
-    RouterModule, 
-    AboutComponent, 
-    ProjectsComponent, 
+    selector: 'app-home',
+    imports: [
+    RouterModule,
+    AboutComponent,
+    ProjectsComponent,
     ContactComponent
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('contact') contactSection!: ElementRef;

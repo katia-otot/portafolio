@@ -1,0 +1,40 @@
+<div class="gallery-container h-100 py-4 px-3 px-md-4">
+  <h1 class="project-title text-center mb-2 mb-md-3">Galería de proyectos</h1>
+  <p class="project-description text-center mb-3 mb-md-4">Estos son algunos de los proyectos en los que he trabajado</p>
+  <div class="gallery-grid row g-3 g-md-4">
+    @for (project of projects; track project) {
+      <div class="gallery-item col-12 col-md-6 col-lg-4 mb-4">
+        <img [src]="project.imageUrl" [alt]="project.title" class="img-fluid rounded">
+        <div class="project-details p-2 p-md-3">
+          <h3 class="mb-2">{{ project.title }}</h3>
+          <p class="mb-2 mb-md-3">{{ project.description }}</p>
+          <div class="technologies mb-2 mb-md-3">
+            @for (tech of project.technologies; track tech) {
+              <span class="tech-badge me-1 mb-1">
+                {{ tech }}
+              </span>
+            }
+          </div>
+          <div class="mt-2 mt-md-3 d-flex gap-2" style="padding-bottom: 10px;">
+            @if (project.githubLink) {
+              <a
+                [href]="project.githubLink"
+                class="btn btn-outline-dark btn-sm btn-md-normal"
+                target="_blank">
+                <i class="fab fa-github me-1 me-md-2"></i>GitHub
+              </a>
+            }
+            @if (project.demoLink) {
+              <a
+                [href]="project.demoLink"
+                target="_blank"
+                class="btn btn-primary btn-sm btn-md-normal">
+                <i class="fas fa-external-link-alt me-1 me-md-2"></i>Demo
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
