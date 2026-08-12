@@ -10,6 +10,14 @@ import { Project } from '../../shared/models/project.model';
 export class ProjectsComponent {
   projects: Project[] = [
     {
+      title: 'Recetas',
+      description:
+        'Biblioteca personal de recetas con búsqueda por ingredientes e importación desde links. Organiza recetas listas y pendientes de estructurar en una interfaz clara.',
+      imageUrl: 'assets/recetas.png',
+      technologies: ['TypeScript', 'React', 'CSS'],
+      demoLink: 'http://149.50.156.136:443/',
+    },
+    {
       title: 'Mapa local por la memoria',
       description: 'Aplicación web para mostrar recorridos que se pueden hacer para visitar los sitios de memoria locales',
       imageUrl: 'assets/mapa.png',
