@@ -55,15 +55,6 @@
   letter-spacing: -0.02em;
 }
 
-.experience-lead {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-text-soft);
-  max-width: 520px;
-  margin: 0 auto;
-}
-
 .timeline {
   position: relative;
   padding-left: 0;
