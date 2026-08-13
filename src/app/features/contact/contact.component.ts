@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
 
+type SubmitState = 'idle' | 'sending' | 'success' | 'error';
+
 @Component({
   selector: 'app-contact',
   imports: [FormsModule, WaveDividerComponent],
@@ -12,26 +14,45 @@ export class ContactComponent {
   name = '';
   email = '';
   message = '';
+  /** Honeypot anti-spam (debe quedar vacío). */
+  botField = '';
 
-  readonly mailTo = 'katiagadea19@gmail.com';
+  submitState: SubmitState = 'idle';
 
-  submitForm(event: Event): void {
+  async submitForm(event: Event): Promise<void> {
     event.preventDefault();
-    const subject = encodeURIComponent(
-      this.name.trim()
-        ? `Contacto desde el portafolio — ${this.name.trim()}`
-        : 'Contacto desde el portafolio'
-    );
-    const body = encodeURIComponent(
-      [
-        this.name.trim() ? `Nombre: ${this.name.trim()}` : null,
-        this.email.trim() ? `Correo: ${this.email.trim()}` : null,
-        '',
-        this.message.trim() || '(Sin mensaje)',
-      ]
-        .filter((line) => line !== null)
-        .join('\n')
-    );
-    window.location.href = `mailto:${this.mailTo}?subject=${subject}&body=${body}`;
+    if (this.submitState === 'sending') {
+      return;
+    }
+
+    this.submitState = 'sending';
+
+    const body = new URLSearchParams({
+      'form-name': 'contact',
+      name: this.name.trim(),
+      email: this.email.trim(),
+      message: this.message.trim(),
+      'bot-field': this.botField,
+    });
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submit failed: ${response.status}`);
+      }
+
+      this.submitState = 'success';
+      this.name = '';
+      this.email = '';
+      this.message = '';
+      this.botField = '';
+    } catch {
+      this.submitState = 'error';
+    }
   }
 }

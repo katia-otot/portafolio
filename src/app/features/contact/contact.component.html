@@ -60,7 +60,22 @@
         </dl>
       </div>
 
-      <form class="contact-form" (submit)="submitForm($event)">
+      <form
+        class="contact-form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        (submit)="submitForm($event)"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp-field" aria-hidden="true">
+          <label>
+            No completar
+            <input type="text" name="bot-field" tabindex="-1" autocomplete="off" [(ngModel)]="botField" />
+          </label>
+        </p>
+
         <div class="form-row">
           <label class="field">
             <span class="field-label">Nombre</span>
@@ -70,6 +85,7 @@
               [(ngModel)]="name"
               autocomplete="name"
               required
+              [disabled]="submitState === 'sending'"
             />
           </label>
           <label class="field">
@@ -80,6 +96,7 @@
               [(ngModel)]="email"
               autocomplete="email"
               required
+              [disabled]="submitState === 'sending'"
             />
           </label>
         </div>
@@ -91,12 +108,27 @@
             rows="3"
             [(ngModel)]="message"
             required
+            [disabled]="submitState === 'sending'"
           ></textarea>
         </label>
 
+        @if (submitState === 'success') {
+          <p class="form-status form-status-ok" role="status">
+            ¡Listo! Tu mensaje se envió. Te respondo pronto.
+          </p>
+        }
+        @if (submitState === 'error') {
+          <p class="form-status form-status-error" role="alert">
+            No se pudo enviar ahora. Probá de nuevo o escribime a
+            <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>.
+          </p>
+        }
+
         <div class="form-footer">
           <p class="form-note">Te responderé lo antes posible.</p>
-          <button type="submit" class="send-btn">Enviar →</button>
+          <button type="submit" class="send-btn" [disabled]="submitState === 'sending'">
+            {{ submitState === 'sending' ? 'Enviando…' : 'Enviar →' }}
+          </button>
         </div>
       </form>
     </div>
