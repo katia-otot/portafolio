@@ -131,6 +131,7 @@ export class ProjectsComponent implements OnDestroy {
     }
     this.activeHowTo = project;
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('howto-open');
   }
 
   closeHowTo(): void {
@@ -152,6 +153,7 @@ export class ProjectsComponent implements OnDestroy {
 
   private unlockScroll(): void {
     document.body.style.overflow = '';
+    document.body.classList.remove('howto-open');
   }
 
   private initPreview(project: Project): void {

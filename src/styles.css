@@ -164,6 +164,19 @@ html[data-theme='dark'] body {
   cursor: url('/assets/cursors/cursor-default-dark.png?v=13') 1 1, auto;
 }
 
+/* Modal Cómo funciona por encima de la nav fija */
+body.howto-open #projects {
+  z-index: 2500;
+  position: relative;
+}
+
+body.howto-open .portfolio-nav,
+body.howto-open .nav-backdrop,
+body.howto-open .nav-links {
+  z-index: 1;
+  pointer-events: none;
+}
+
 *,
 *::before,
 *::after {
