@@ -136,9 +136,12 @@
   >
     <div class="howto-panel" (click)="$event.stopPropagation()">
       <header class="howto-header">
-        <h3 class="howto-title" [id]="'howto-title-' + activeHowTo!.title">
-          {{ activeHowTo!.title }} · Cómo funciona
-        </h3>
+        <div class="howto-heading">
+          <p class="howto-kicker">Cómo funciona</p>
+          <h3 class="howto-title" [id]="'howto-title-' + activeHowTo!.title">
+            {{ activeHowTo!.title }}
+          </h3>
+        </div>
         <button type="button" class="howto-close" (click)="closeHowTo()">
           Cerrar ×
         </button>
