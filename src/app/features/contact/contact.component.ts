@@ -11,6 +11,10 @@ type SubmitState = 'idle' | 'sending' | 'success' | 'error';
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
+  /** Destino del correo (FormSubmit → Gmail). */
+  private readonly formEndpoint =
+    'https://formsubmit.co/ajax/katiagadea19@gmail.com';
+
   name = '';
   email = '';
   message = '';
@@ -18,34 +22,62 @@ export class ContactComponent {
   botField = '';
 
   submitState: SubmitState = 'idle';
+  /** True si FormSubmit pide activar el correo destino la primera vez. */
+  activationPending = false;
 
   async submitForm(event: Event): Promise<void> {
     event.preventDefault();
-    if (this.submitState === 'sending') {
+    if (this.submitState === 'sending' || this.botField.trim()) {
       return;
     }
 
     this.submitState = 'sending';
 
-    const body = new URLSearchParams({
-      'form-name': 'contact',
-      name: this.name.trim(),
-      email: this.email.trim(),
-      message: this.message.trim(),
-      'bot-field': this.botField,
-    });
-
     try {
-      const response = await fetch('/', {
+      const response = await fetch(this.formEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.name.trim(),
+          email: this.email.trim(),
+          message: this.message.trim(),
+          _subject: this.name.trim()
+            ? `Contacto portafolio — ${this.name.trim()}`
+            : 'Contacto desde el portafolio',
+          _template: 'table',
+          _captcha: 'false',
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Form submit failed: ${response.status}`);
+      const payload = (await response.json().catch(() => null)) as {
+        success?: string | boolean;
+        message?: string;
+      } | null;
+
+      const successFlag = payload?.success;
+      const ok =
+        response.ok &&
+        (successFlag === true ||
+          successFlag === 'true' ||
+          String(payload?.message ?? '')
+            .toLowerCase()
+            .includes('success'));
+
+      if (!ok) {
+        const msg = String(payload?.message ?? '');
+        // Primera vez: FormSubmit pide activar el destino por mail.
+        if (/activat/i.test(msg)) {
+          this.submitState = 'error';
+          this.activationPending = true;
+          return;
+        }
+        throw new Error(msg || `Form submit failed: ${response.status}`);
       }
 
+      this.activationPending = false;
       this.submitState = 'success';
       this.name = '';
       this.email = '';

@@ -60,15 +60,7 @@
         </dl>
       </div>
 
-      <form
-        class="contact-form"
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        (submit)="submitForm($event)"
-      >
-        <input type="hidden" name="form-name" value="contact" />
+      <form class="contact-form" (submit)="submitForm($event)">
         <p class="hp-field" aria-hidden="true">
           <label>
             No completar
@@ -117,7 +109,13 @@
             ¡Listo! Tu mensaje se envió. Te respondo pronto.
           </p>
         }
-        @if (submitState === 'error') {
+        @if (submitState === 'error' && activationPending) {
+          <p class="form-status form-status-error" role="alert">
+            Revisá tu Gmail (<strong>katiagadea19&#64;gmail.com</strong>) y abrí el link
+            “Activate Form” de FormSubmit. Es solo la primera vez; después el envío queda activo.
+          </p>
+        }
+        @if (submitState === 'error' && !activationPending) {
           <p class="form-status form-status-error" role="alert">
             No se pudo enviar ahora. Probá de nuevo o escribime a
             <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>.
