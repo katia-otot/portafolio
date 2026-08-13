@@ -56,9 +56,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouseX = -9999;
   private mouseY = -9999;
   private reducedMotion = false;
+  private fleeEnabled = false;
   private started = 0;
 
   private readonly onPointerMove = (event: PointerEvent): void => {
+    if (!this.fleeEnabled) {
+      return;
+    }
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   };
@@ -70,6 +74,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly onResize = (): void => {
     this.syncBlobHomes();
+    this.updateFleeMode();
     if (typeof window !== 'undefined' && window.innerWidth >= 900) {
       this.closeMenu();
     }
@@ -92,6 +97,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.initBlobs();
+    this.updateFleeMode();
     this.started = performance.now();
     window.addEventListener('pointermove', this.onPointerMove, { passive: true });
     document.addEventListener('pointermove', this.onPointerMove, { passive: true });
@@ -172,6 +178,23 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     document.body.style.overflow = '';
   }
 
+  private updateFleeMode(): void {
+    if (typeof window === 'undefined') {
+      this.fleeEnabled = false;
+      return;
+    }
+    // Solo con mouse/trackpad; en touch solo deriva suave.
+    this.fleeEnabled = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!this.fleeEnabled) {
+      this.mouseX = -9999;
+      this.mouseY = -9999;
+      for (const blob of this.blobs) {
+        blob.vx = 0;
+        blob.vy = 0;
+      }
+    }
+  }
+
   private initBlobs(): void {
     const root = this.ambientBg?.nativeElement;
     if (!root) {
@@ -221,9 +244,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     const t = now - this.started;
     const influencePad = 140;
     const fleeStrength = 22;
-    const spring = 0.028;
-    const friction = 0.78;
-    const maxSpeed = 42;
+    const spring = this.fleeEnabled ? 0.028 : 0.02;
+    const friction = this.fleeEnabled ? 0.78 : 0.9;
+    const maxSpeed = this.fleeEnabled ? 42 : 8;
 
     for (const blob of this.blobs) {
       const idleX = Math.sin(t * blob.driftSpeed + blob.phase) * blob.driftAmpX;
@@ -231,16 +254,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       const targetX = blob.homeX + idleX;
       const targetY = blob.homeY + idleY;
 
-      const dx = blob.x - this.mouseX;
-      const dy = blob.y - this.mouseY;
-      const dist = Math.hypot(dx, dy) || 1;
-      const influence = blob.radius + influencePad;
+      if (this.fleeEnabled) {
+        const dx = blob.x - this.mouseX;
+        const dy = blob.y - this.mouseY;
+        const dist = Math.hypot(dx, dy) || 1;
+        const influence = blob.radius + influencePad;
 
-      if (dist < influence) {
-        const proximity = 1 - dist / influence;
-        const force = proximity * proximity * fleeStrength;
-        blob.vx += (dx / dist) * force;
-        blob.vy += (dy / dist) * force;
+        if (dist < influence) {
+          const proximity = 1 - dist / influence;
+          const force = proximity * proximity * fleeStrength;
+          blob.vx += (dx / dist) * force;
+          blob.vy += (dy / dist) * force;
+        }
       }
 
       blob.vx += (targetX - blob.x) * spring;
@@ -259,7 +284,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const ox = blob.x - blob.homeX;
       const oy = blob.y - blob.homeY;
-      const squash = Math.min(1.18, 1 + Math.hypot(blob.vx, blob.vy) * 0.008);
+      const squash = this.fleeEnabled
+        ? Math.min(1.18, 1 + Math.hypot(blob.vx, blob.vy) * 0.008)
+        : 1;
       blob.el.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${squash.toFixed(3)})`;
     }
 
