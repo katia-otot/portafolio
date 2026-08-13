@@ -161,8 +161,15 @@ export class ProjectsComponent implements OnDestroy {
       return;
     }
 
-    if (!demo.startsWith('https://') || this.isSelfPortfolio(demo)) {
+    // HTTP demos: free screenshot (no mixed-content iframe).
+    if (!demo.startsWith('https://')) {
       this.previewMode[project.title] = 'shot';
+      return;
+    }
+
+    // Self-portfolio: local asset (iframe would recurse; mShots keeps a stale cache).
+    if (this.isSelfPortfolio(demo)) {
+      this.previewMode[project.title] = 'static';
       return;
     }
 
