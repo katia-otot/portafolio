@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  HostListener,
   inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -46,6 +47,8 @@ interface AmbientBlob {
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('ambientBg', { static: true }) ambientBg!: ElementRef<HTMLElement>;
 
+  menuOpen = false;
+
   private sections: HTMLElement[] = [];
   private isMobile = false;
   private blobs: AmbientBlob[] = [];
@@ -67,6 +70,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private readonly onResize = (): void => {
     this.syncBlobHomes();
+    if (typeof window !== 'undefined' && window.innerWidth >= 900) {
+      this.closeMenu();
+    }
   };
 
   readonly themeService = inject(ThemeService);
@@ -92,7 +98,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     window.addEventListener('pointerleave', this.onPointerLeave);
     document.documentElement.addEventListener('mouseleave', this.onPointerLeave);
     window.addEventListener('resize', this.onResize, { passive: true });
-    // Re-sync after layout settles (fonts / images).
     requestAnimationFrame(() => {
       this.syncBlobHomes();
       this.rafId = requestAnimationFrame(this.tick);
@@ -106,14 +111,50 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     window.removeEventListener('pointerleave', this.onPointerLeave);
     document.documentElement.removeEventListener('mouseleave', this.onPointerLeave);
     window.removeEventListener('resize', this.onResize);
+    this.unlockScroll();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.menuOpen) {
+      this.closeMenu();
+    }
   }
 
   toggleTheme(): void {
     this.themeService.toggle();
   }
 
+  toggleMenu(): void {
+    if (this.menuOpen) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
+  }
+
+  openMenu(): void {
+    this.menuOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
+    this.unlockScroll();
+  }
+
+  goHome(): void {
+    this.closeMenu();
+    this.scrollToId('home');
+  }
+
+  navigateTo(fragment: string): void {
+    this.closeMenu();
+    requestAnimationFrame(() => this.scrollToId(fragment));
+  }
+
   scrollToContact(): void {
-    this.scrollToId('contact');
+    this.navigateTo('contact');
   }
 
   scrollToId(fragment: string): void {
@@ -125,6 +166,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         block: 'start',
       });
     }
+  }
+
+  private unlockScroll(): void {
+    document.body.style.overflow = '';
   }
 
   private initBlobs(): void {
