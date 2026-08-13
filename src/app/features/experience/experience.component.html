@@ -1,9 +1,25 @@
 <div class="experience-root">
   <div class="experience-inner">
-    <header class="experience-header text-center">
+    <header class="experience-header">
+      <img
+        class="experience-cat theme-cat-dark"
+        src="assets/cats/cat-stretch.png"
+        alt=""
+        aria-hidden="true"
+        width="1024"
+        height="682"
+      />
+      <img
+        class="experience-cat theme-cat-light"
+        src="assets/cats/cat-stretch-light.png"
+        alt=""
+        aria-hidden="true"
+        width="1024"
+        height="682"
+      />
       <span class="eyebrow">Trayectoria</span>
       <h2 class="experience-title">Experiencia laboral</h2>
-      <div class="accent-line"></div>
+      <app-wave-divider variant="narrow" />
       <p class="experience-lead">
         Roles recientes donde integré frontend, mobile, backend, datos y servicios cloud.
       </p>
@@ -11,16 +27,12 @@
 
     <div class="timeline">
       @for (job of experiences; track job.company + job.period) {
-        <article class="timeline-card">
+        <article class="timeline-entry">
           <div class="timeline-marker" aria-hidden="true"></div>
           <div class="timeline-body">
-            <div class="timeline-meta">
-              <span class="period-badge">{{ job.period }}</span>
-            </div>
+            <p class="period">{{ job.period }}</p>
             <h3 class="role-title">{{ job.role }}</h3>
-            <p class="company-name">
-              <i class="fas fa-building me-2" aria-hidden="true"></i>{{ job.company }}
-            </p>
+            <p class="company-name">{{ job.company }}</p>
             <p class="role-summary">{{ job.summary }}</p>
             <ul class="highlights">
               @for (item of job.bullets; track item.text) {

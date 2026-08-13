@@ -1,35 +1,83 @@
 <div class="skills-root">
   <div class="skills-inner">
     <header class="skills-header text-center">
+      <img
+        class="skills-cat theme-cat-dark"
+        src="assets/cats/cat-portrait.png"
+        alt=""
+        aria-hidden="true"
+        width="682"
+        height="1024"
+      />
+      <img
+        class="skills-cat theme-cat-light"
+        src="assets/cats/cat-peek-light.png"
+        alt=""
+        aria-hidden="true"
+        width="1024"
+        height="682"
+      />
       <span class="eyebrow">Stack</span>
       <h2 class="skills-title">Habilidades técnicas</h2>
-      <div class="accent-line"></div>
+      <app-wave-divider variant="narrow" />
       <p class="skills-lead">
         Herramientas y tecnologías que uso en productos web, mobile y backend.
       </p>
     </header>
 
-    <div class="skills-grid">
+    <div class="skills-columns">
       @for (group of groups; track group.title) {
-        <article class="skill-card">
-          <div class="skill-card-head">
-            <span class="icon-wrap" aria-hidden="true">
-              <i [class]="'fas ' + group.icon"></i>
-            </span>
-            <h3 class="group-title">{{ group.title }}</h3>
-          </div>
-          <div class="chips">
-            @for (skill of group.items; track skill) {
-              <span class="chip">{{ skill }}</span>
+        <article class="skill-block">
+          <header class="skill-block-head">
+            <div class="skill-block-title-row">
+              <span class="skill-block-icon" aria-hidden="true">
+                <i [class]="'fas ' + group.icon"></i>
+              </span>
+              <h3 class="group-title">{{ group.title }}</h3>
+            </div>
+            <p class="group-blurb">{{ group.blurb }}</p>
+            <app-wave-divider />
+          </header>
+
+          <ul class="skill-icon-grid">
+            @for (skill of group.items; track skill.name) {
+              <li class="skill-icon-item">
+                @if (skill.pack === 'devicon') {
+                  <i [class]="skill.icon + ' skill-logo'" aria-hidden="true"></i>
+                } @else {
+                  <span
+                    class="iconify skill-logo"
+                    [attr.data-icon]="skill.icon"
+                    aria-hidden="true"
+                  ></span>
+                }
+                <span class="skill-name">{{ skill.name }}</span>
+              </li>
             }
-          </div>
+          </ul>
         </article>
       }
     </div>
 
-    <p class="languages-note text-center">
-      <i class="fas fa-language me-2" aria-hidden="true"></i>
-      <strong>Idiomas:</strong> Inglés A1, lectura técnica.
-    </p>
+    <article class="languages-block">
+      <header class="skill-block-head">
+        <div class="skill-block-title-row">
+          <span class="skill-block-icon" aria-hidden="true">
+            <i class="fas fa-globe"></i>
+          </span>
+          <h3 class="group-title">Idiomas</h3>
+        </div>
+        <app-wave-divider />
+      </header>
+
+      <ul class="languages-row">
+        @for (lang of languages; track lang.name) {
+          <li class="language-item">
+            <span class="language-name">{{ lang.name }}</span>
+            <span class="language-level">{{ lang.level }}</span>
+          </li>
+        }
+      </ul>
+    </article>
   </div>
 </div>

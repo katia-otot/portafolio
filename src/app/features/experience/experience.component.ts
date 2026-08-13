@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
 
 export interface ExperienceBullet {
   text: string;
@@ -14,7 +15,7 @@ export interface ExperienceItem {
 
 @Component({
   selector: 'app-experience',
-  imports: [],
+  imports: [WaveDividerComponent],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })

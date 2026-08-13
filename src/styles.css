@@ -1,169 +1,334 @@
 /* =============================================================================
-   Paleta del portafolio — usar siempre estas variables en CSS nuevo.
+   Paleta del portafolio — tema gato / cobre
+   Light = :root | Dark = [data-theme="dark"]
    ============================================================================= */
 :root {
-  /* Marca (naranja principal del sitio) */
-  --color-primary: #c64b00;
-  --color-primary-hover: #a13d00;
-  --color-primary-rgb: 198, 75, 0;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  /* Acentos (gradientes, highlights) */
-  --color-accent-warm: #e8703a;
-  --color-accent-salmon: #ff9f7a;
-  --color-accent-coral: #ff8a5c;
-  --color-accent-gold: #ffb347;
+  /* Marca cobre */
+  --color-primary: #b56a3a;
+  --color-primary-hover: #9a5530;
+  --color-primary-rgb: 181, 106, 58;
+  --color-copper-soft: #d4a574;
+  --color-copper-glow: rgba(181, 106, 58, 0.35);
 
   /* Texto */
-  --color-text: #2c3e50;
-  --color-text-secondary: #3d4f5f;
-  --color-text-muted: #505965;
-  --color-text-soft: #5a6570;
-  --color-text-body: #555555;
-  --color-text-dark: #333333;
-  --color-text-inverse: #ffffff;
+  --color-text: #2a221c;
+  --color-text-secondary: #5a4e44;
+  --color-text-muted: #7a6c60;
+  --color-text-soft: #8a7b6e;
+  --color-text-body: #5a4e44;
+  --color-text-dark: #2a221c;
+  --color-text-inverse: #f7f1e8;
 
-  /* Superficies */
-  --color-surface: #ffffff;
-  --color-surface-muted: #f5f5f5;
-  --color-surface-warm: #f8f4ec;
-  --color-surface-warm-top: #fffefb;
-  --color-surface-warm-bottom: #f0ebe3;
-  --color-surface-card: #faf8f5;
-  --color-surface-muted-strong: #f9f9f9;
-  --color-surface-neutral: #f0f0f0;
-  --color-text-placeholder: #666666;
+  /* Superficies light */
+  --color-bg: #f3ece3;
+  --color-surface: #fffaf4;
+  --color-surface-raised: #ffffff;
+  --color-surface-muted: #ebe3d8;
+  --color-surface-warm: #f3ece3;
+  --color-surface-card: #fffaf4;
+  --color-surface-cream: #f7f1e8;
+  --color-nav: rgba(255, 250, 244, 0.88);
 
-  /* Formas decorativas (hero) */
-  --color-shape-pink: #ffd6e0;
-  --color-shape-mint: #c1ffd7;
-  --color-shape-mint-rgb: 193, 255, 215;
-  --color-shape-seafoam: #b5ead7;
-  --color-shape-sage: #e2f0cb;
-  --color-accent-blush: rgba(255, 182, 193, 0.9);
+  /* Borders / shadows */
+  --color-border: rgba(42, 34, 28, 0.12);
+  --color-border-strong: rgba(181, 106, 58, 0.28);
+  --color-shadow: rgba(42, 34, 28, 0.08);
+  --color-shadow-hover: rgba(181, 106, 58, 0.18);
 
-  /* Secciones oscuras (p. ej. experiencia) */
-  --color-ink: #1a1f2e;
-  --color-ink-mid: #252b3d;
-  --color-ink-deep: #2c2235;
+  /* Decoración */
+  --color-paw: rgba(181, 106, 58, 0.14);
+  --color-silhouette: rgba(181, 106, 58, 0.12);
 
-  /* Neutros UI */
-  --color-border-light: #dddddd;
-  --color-border-subtle: rgba(44, 62, 80, 0.08);
-  --color-border-primary-soft: rgba(var(--color-primary-rgb), 0.1);
-  --color-border-primary-medium: rgba(var(--color-primary-rgb), 0.15);
-  --color-border-primary-strong: rgba(var(--color-primary-rgb), 0.35);
-  --color-shadow-soft: rgba(0, 0, 0, 0.04);
-  --color-shadow-card: rgba(44, 62, 80, 0.06);
-  --color-shadow-card-hover: rgba(var(--color-primary-rgb), 0.12);
-  --color-shadow-brand: rgba(var(--color-primary-rgb), 0.35);
+  /* Compat aliases usadas por componentes */
+  --color-accent-warm: #c4783a;
+  --color-accent-salmon: #d4a574;
+  --color-accent-coral: #c9895c;
+  --color-accent-gold: #e0b87a;
+  --color-surface-warm-top: #fffaf4;
+  --color-surface-warm-bottom: #ebe3d8;
+  --color-surface-muted-strong: #ebe3d8;
+  --color-surface-neutral: #e6ddd2;
+  --color-text-placeholder: #7a6c60;
+  --color-shape-pink: #e8c4b0;
+  --color-shape-mint: #c9d5c0;
+  --color-shape-mint-rgb: 201, 213, 192;
+  --color-shape-seafoam: #c5d0b8;
+  --color-shape-sage: #d8cfc0;
+  --color-accent-blush: rgba(212, 165, 116, 0.9);
+  --color-ink: #1a1614;
+  --color-ink-mid: #241f1c;
+  --color-ink-deep: #2c2520;
+  --color-border-light: rgba(42, 34, 28, 0.12);
+  --color-border-subtle: rgba(42, 34, 28, 0.1);
+  --color-border-primary-soft: rgba(181, 106, 58, 0.14);
+  --color-border-primary-medium: rgba(181, 106, 58, 0.22);
+  --color-border-primary-strong: rgba(181, 106, 58, 0.4);
+  --color-shadow-soft: rgba(42, 34, 28, 0.06);
+  --color-shadow-card: rgba(42, 34, 28, 0.08);
+  --color-shadow-card-hover: rgba(181, 106, 58, 0.16);
+  --color-shadow-brand: rgba(181, 106, 58, 0.35);
   --color-shadow-dark: rgba(0, 0, 0, 0.35);
-  --color-overlay-nav: rgba(255, 255, 255, 0.88);
-  --color-ink-rgb: 44, 62, 80;
+  --color-overlay-nav: var(--color-nav);
+  --color-ink-rgb: 42, 34, 28;
 
-  /* Bootstrap 5: alinear “primary” con la marca (botones, etc.) */
   --bs-primary: var(--color-primary);
   --bs-primary-rgb: var(--color-primary-rgb);
+
+  color-scheme: light;
 }
 
-/* Botón primario: naranja de marca (sobreescribe el azul por defecto de Bootstrap) */
+[data-theme='dark'] {
+  --color-primary: #d4894f;
+  --color-primary-hover: #e09a62;
+  --color-primary-rgb: 212, 137, 79;
+  --color-copper-soft: #e0b87a;
+  --color-copper-glow: rgba(212, 137, 79, 0.4);
+
+  --color-text: #f7f1e8;
+  --color-text-secondary: #d4c6b6;
+  --color-text-muted: #b5a594;
+  --color-text-soft: #a89886;
+  --color-text-body: #d4c6b6;
+  --color-text-dark: #f7f1e8;
+  --color-text-inverse: #1a1614;
+
+  --color-bg: #14110f;
+  --color-surface: #1c1815;
+  --color-surface-raised: #241f1c;
+  --color-surface-muted: #1a1614;
+  --color-surface-warm: #181411;
+  --color-surface-card: #221d1a;
+  --color-surface-cream: #f0e6d8;
+  --color-nav: rgba(28, 24, 21, 0.9);
+
+  --color-border: rgba(247, 241, 232, 0.1);
+  --color-border-strong: rgba(212, 137, 79, 0.35);
+  --color-shadow: rgba(0, 0, 0, 0.35);
+  --color-shadow-hover: rgba(212, 137, 79, 0.22);
+
+  --color-paw: rgba(212, 137, 79, 0.18);
+  --color-silhouette: rgba(212, 137, 79, 0.2);
+
+  --color-accent-warm: #d4894f;
+  --color-accent-salmon: #e0b87a;
+  --color-accent-coral: #d4a574;
+  --color-accent-gold: #e8c48a;
+  --color-surface-warm-top: #1c1815;
+  --color-surface-warm-bottom: #14110f;
+  --color-surface-muted-strong: #241f1c;
+  --color-surface-neutral: #2a2420;
+  --color-text-placeholder: #a89886;
+  --color-shape-pink: #3a2a24;
+  --color-shape-mint: #2a3228;
+  --color-shape-seafoam: #2c3228;
+  --color-shape-sage: #322c26;
+  --color-ink: #0e0c0b;
+  --color-ink-mid: #181411;
+  --color-ink-deep: #1c1815;
+  --color-border-light: rgba(247, 241, 232, 0.1);
+  --color-border-subtle: rgba(247, 241, 232, 0.08);
+  --color-border-primary-soft: rgba(212, 137, 79, 0.16);
+  --color-border-primary-medium: rgba(212, 137, 79, 0.28);
+  --color-border-primary-strong: rgba(212, 137, 79, 0.45);
+  --color-shadow-soft: rgba(0, 0, 0, 0.25);
+  --color-shadow-card: rgba(0, 0, 0, 0.3);
+  --color-shadow-card-hover: rgba(212, 137, 79, 0.2);
+  --color-shadow-brand: rgba(212, 137, 79, 0.4);
+  --color-overlay-nav: var(--color-nav);
+  --color-ink-rgb: 247, 241, 232;
+
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: var(--color-primary-rgb);
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  cursor: url('/assets/cursors/cursor-default.png?v=13') 1 1, auto;
+}
+
+html[data-theme='dark'],
+html[data-theme='dark'] body {
+  cursor: url('/assets/cursors/cursor-default-dark.png?v=13') 1 1, auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Gatos por tema: oscuros en dark, claros en light */
+[data-theme='light'] .theme-cat-dark {
+  display: none !important;
+}
+
+[data-theme='dark'] .theme-cat-light {
+  display: none !important;
+}
+
+/* Cursores temáticos (tamaños chicos ~28–32px) */
+a,
+button,
+.btn,
+[role='button'],
+.nav-brand,
+.nav-links button,
+.theme-toggle,
+.nav-cta,
+input[type='button'],
+input[type='submit'],
+input[type='reset'],
+label[for],
+select,
+summary,
+.gallery-item a,
+.tech-badge {
+  cursor: url('/assets/cursors/cursor-pointer.png?v=13') 16 1, pointer !important;
+}
+
+html[data-theme='dark'] a,
+html[data-theme='dark'] button,
+html[data-theme='dark'] .btn,
+html[data-theme='dark'] [role='button'],
+html[data-theme='dark'] .nav-brand,
+html[data-theme='dark'] .nav-links button,
+html[data-theme='dark'] .theme-toggle,
+html[data-theme='dark'] .nav-cta,
+html[data-theme='dark'] input[type='button'],
+html[data-theme='dark'] input[type='submit'],
+html[data-theme='dark'] input[type='reset'],
+html[data-theme='dark'] label[for],
+html[data-theme='dark'] select,
+html[data-theme='dark'] summary,
+html[data-theme='dark'] .gallery-item a,
+html[data-theme='dark'] .tech-badge {
+  cursor: url('/assets/cursors/cursor-pointer-dark.png?v=13') 16 1, pointer !important;
+}
+
+a:active,
+button:active,
+.btn:active,
+[role='button']:active,
+.nav-brand:active,
+.nav-links button:active,
+.theme-toggle:active {
+  cursor: url('/assets/cursors/cursor-click.png?v=13') 1 1, pointer !important;
+}
+
+html[data-theme='dark'] a:active,
+html[data-theme='dark'] button:active,
+html[data-theme='dark'] .btn:active,
+html[data-theme='dark'] [role='button']:active,
+html[data-theme='dark'] .nav-brand:active,
+html[data-theme='dark'] .nav-links button:active,
+html[data-theme='dark'] .theme-toggle:active {
+  cursor: url('/assets/cursors/cursor-click-dark.png?v=13') 1 1, pointer !important;
+}
+
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']),
+textarea,
+[contenteditable='true'],
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+label,
+.about-text,
+.hero-sub,
+.hero-tagline,
+.hero-headline,
+.section-title,
+.experience-lead,
+.skills-lead,
+.project-description,
+.role-summary,
+.company-name,
+.value,
+.contact-title {
+  cursor: url('/assets/cursors/cursor-text.png?v=13') 14 14, text !important;
+}
+
+html[data-theme='dark'] input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']),
+html[data-theme='dark'] textarea,
+html[data-theme='dark'] [contenteditable='true'],
+html[data-theme='dark'] p,
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3,
+html[data-theme='dark'] h4,
+html[data-theme='dark'] h5,
+html[data-theme='dark'] h6,
+html[data-theme='dark'] li,
+html[data-theme='dark'] label,
+html[data-theme='dark'] .about-text,
+html[data-theme='dark'] .hero-sub,
+html[data-theme='dark'] .hero-tagline,
+html[data-theme='dark'] .hero-headline,
+html[data-theme='dark'] .section-title,
+html[data-theme='dark'] .experience-lead,
+html[data-theme='dark'] .skills-lead,
+html[data-theme='dark'] .project-description,
+html[data-theme='dark'] .role-summary,
+html[data-theme='dark'] .company-name,
+html[data-theme='dark'] .value,
+html[data-theme='dark'] .contact-title {
+  cursor: url('/assets/cursors/cursor-text-dark.png?v=13') 14 14, text !important;
+}
+
+h1,
+h2,
+h3,
+.hero-headline,
+.section-title {
+  font-family: var(--font-display);
+}
+
 .btn.btn-primary {
-  --bs-btn-color: var(--color-text-inverse);
+  --bs-btn-color: #fffaf4;
   --bs-btn-bg: var(--color-primary);
   --bs-btn-border-color: var(--color-primary);
-  --bs-btn-hover-color: var(--color-text-inverse);
+  --bs-btn-hover-color: #fffaf4;
   --bs-btn-hover-bg: var(--color-primary-hover);
   --bs-btn-hover-border-color: var(--color-primary-hover);
-  --bs-btn-active-color: var(--color-text-inverse);
+  --bs-btn-active-color: #fffaf4;
   --bs-btn-active-bg: var(--color-primary-hover);
   --bs-btn-active-border-color: var(--color-primary-hover);
-  --bs-btn-disabled-color: var(--color-text-inverse);
+  --bs-btn-disabled-color: #fffaf4;
   --bs-btn-disabled-bg: var(--color-primary);
   --bs-btn-disabled-border-color: var(--color-primary);
   border: none;
   box-shadow: none;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .btn.btn-primary:focus-visible {
-  box-shadow: 0 0 0 0.25rem rgba(var(--color-primary-rgb), 0.35);
+  box-shadow: 0 0 0 0.25rem var(--color-copper-glow);
 }
 
-body {
-  font-family: 'Poppins', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-header {
-  background-color: #333333;
-  padding: 1rem;
-  text-align: center;
-}
-
-nav a {
-  color: var(--color-text-inverse);
-  text-decoration: none;
-  margin: 0 1rem;
-}
-
-nav a.active {
-  font-weight: bold;
-  border-bottom: 2px solid var(--color-text-inverse);
-}
-
-.hero {
-  text-align: center;
-  padding: 4rem 1rem;
-  background-color: var(--color-surface-muted);
-}
-
-.projects {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.project-card {
-  border: 1px solid var(--color-border-light);
-  border-radius: 8px;
-  margin: 1rem;
-  padding: 1rem;
-  text-align: center;
-  width: 300px;
-}
-
-.project-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.icon {
-  font-size: 2rem;
-  color: var(--color-primary);
-}
-
-.contact-section {
-  background-color: var(--color-surface);
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-@media (max-width: 767px) {
-  .hero {
-    padding: 2rem 1rem;
-  }
-
-  .icon {
-    font-size: 1.5rem;
-  }
-
-  .info-item {
-    gap: 0.5rem;
-  }
+.app-footer {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
 }

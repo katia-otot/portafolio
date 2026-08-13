@@ -1,34 +1,104 @@
-<section class="contact-section py-5 px-3 px-md-4">
-    <div class="triangle-decorator"></div>
-    <div class="additional-decorator-1"></div>
-    <div class="additional-decorator-2"></div>
-    <div class="contact-container h-100">
-      <h1 class="text-center mb-3 mb-md-4">Ponte en contacto</h1>
-      <hr class="divider">
-      <div class="contact-info row justify-content-center mt-4 mt-md-5">
-        <div class="info-item col-12 col-md-6 d-flex align-items-center mb-4 mb-md-3 justify-content-center justify-content-md-start">
-            <span class="icon me-3"><i class="fas fa-phone-alt"></i></span>
-          <div>
-            <p class="label mb-1">TELÉFONO</p>
-            <p class="value mb-0">02262360846</p>
+<section class="contact-root">
+  <div class="contact-inner">
+    <header class="contact-header">
+      <img
+        class="contact-cat theme-cat-dark"
+        src="assets/cats/cat-peek.png"
+        alt=""
+        aria-hidden="true"
+        width="1024"
+        height="682"
+      />
+      <img
+        class="contact-cat theme-cat-light"
+        src="assets/cats/cat-peek-light.png"
+        alt=""
+        aria-hidden="true"
+        width="1024"
+        height="682"
+      />
+      <span class="eyebrow">Contacto</span>
+      <h2 class="contact-title">Ponte en contacto</h2>
+      <app-wave-divider variant="narrow" />
+    </header>
+
+    <div class="contact-grid">
+      <div class="contact-aside">
+        <h3 class="contact-headline">
+          Hablemos.<br />
+          Estaré encantada de leerte.
+        </h3>
+
+        <dl class="contact-details">
+          <div class="detail">
+            <dt>Correo</dt>
+            <dd>
+              <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>
+            </dd>
           </div>
-        </div>
-        <div class="info-item col-12 col-md-6 d-flex align-items-center mb-3 justify-content-center justify-content-md-start">
-            <span class="icon me-3"><i class="fas fa-envelope"></i></span>
-          <div>
-            <p class="label mb-1">CORREO</p>
-            <p class="value mb-0">katiagadea19&#64;gmail.com</p>
+          <div class="detail">
+            <dt>Teléfono</dt>
+            <dd>
+              <a href="tel:+542262360846">02262360846</a>
+            </dd>
           </div>
-        </div>
-        <div class="info-item col-12 col-md-6 d-flex align-items-center mb-3 justify-content-center justify-content-md-start">
-          <span class="icon me-3"><i class="fab fa-linkedin"></i></span>
-          <div>
-            <p class="label mb-1">Linkedin</p>
-            <p class="value mb-0">
-              <a href="https://www.linkedin.com/in/katia-gadea-5a7ab2292/" target="_blank" rel="noopener noreferrer">Katia Gadea</a>
-            </p>
+          <div class="detail">
+            <dt>LinkedIn</dt>
+            <dd>
+              <a
+                href="https://www.linkedin.com/in/katia-gadea-5a7ab2292/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Katia Gadea</a
+              >
+            </dd>
           </div>
-        </div>
+          <div class="detail">
+            <dt>Disponibilidad</dt>
+            <dd>Disponible para oportunidades en remoto o híbridas</dd>
+          </div>
+        </dl>
       </div>
+
+      <form class="contact-form" (submit)="submitForm($event)">
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">Nombre</span>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="name"
+              autocomplete="name"
+              required
+            />
+          </label>
+          <label class="field">
+            <span class="field-label">Correo</span>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="email"
+              autocomplete="email"
+              required
+            />
+          </label>
+        </div>
+
+        <label class="field field-full">
+          <span class="field-label">Mensaje</span>
+          <textarea
+            name="message"
+            rows="3"
+            [(ngModel)]="message"
+            required
+          ></textarea>
+        </label>
+
+        <div class="form-footer">
+          <p class="form-note">Te responderé lo antes posible.</p>
+          <button type="submit" class="send-btn">Enviar →</button>
+        </div>
+      </form>
     </div>
+  </div>
 </section>
