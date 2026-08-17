@@ -17,33 +17,33 @@
         width="1024"
         height="682"
       />
-      <span class="eyebrow">Contacto</span>
-      <h2 class="contact-title">Ponte en contacto</h2>
+      <span class="eyebrow">{{ 'contact.eyebrow' | t: i18n.locale() }}</span>
+      <h2 class="contact-title">{{ 'contact.title' | t: i18n.locale() }}</h2>
       <app-wave-divider variant="narrow" />
     </header>
 
     <div class="contact-grid">
       <div class="contact-aside">
         <h3 class="contact-headline">
-          Hablemos.<br />
-          Estaré encantada de leerte.
+          {{ 'contact.headline1' | t: i18n.locale() }}<br />
+          {{ 'contact.headline2' | t: i18n.locale() }}
         </h3>
 
         <dl class="contact-details">
           <div class="detail">
-            <dt>Correo</dt>
+            <dt>{{ 'contact.email' | t: i18n.locale() }}</dt>
             <dd>
               <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>
             </dd>
           </div>
           <div class="detail">
-            <dt>Teléfono</dt>
+            <dt>{{ 'contact.phone' | t: i18n.locale() }}</dt>
             <dd>
               <a href="tel:+542262360846">02262360846</a>
             </dd>
           </div>
           <div class="detail">
-            <dt>LinkedIn</dt>
+            <dt>{{ 'contact.linkedin' | t: i18n.locale() }}</dt>
             <dd>
               <a
                 href="https://www.linkedin.com/in/katia-gadea-5a7ab2292/"
@@ -54,8 +54,8 @@
             </dd>
           </div>
           <div class="detail">
-            <dt>Disponibilidad</dt>
-            <dd>Disponible para oportunidades en remoto o híbridas</dd>
+            <dt>{{ 'contact.availability' | t: i18n.locale() }}</dt>
+            <dd>{{ 'contact.availabilityValue' | t: i18n.locale() }}</dd>
           </div>
         </dl>
       </div>
@@ -63,14 +63,14 @@
       <form class="contact-form" (submit)="submitForm($event)">
         <p class="hp-field" aria-hidden="true">
           <label>
-            No completar
+            {{ 'contact.honeypot' | t: i18n.locale() }}
             <input type="text" name="bot-field" tabindex="-1" autocomplete="off" [(ngModel)]="botField" />
           </label>
         </p>
 
         <div class="form-row">
           <label class="field">
-            <span class="field-label">Nombre</span>
+            <span class="field-label">{{ 'contact.name' | t: i18n.locale() }}</span>
             <input
               type="text"
               name="name"
@@ -81,7 +81,7 @@
             />
           </label>
           <label class="field">
-            <span class="field-label">Correo</span>
+            <span class="field-label">{{ 'contact.email' | t: i18n.locale() }}</span>
             <input
               type="email"
               name="email"
@@ -94,7 +94,7 @@
         </div>
 
         <label class="field field-full">
-          <span class="field-label">Mensaje</span>
+          <span class="field-label">{{ 'contact.message' | t: i18n.locale() }}</span>
           <textarea
             name="message"
             rows="3"
@@ -106,26 +106,28 @@
 
         @if (submitState === 'success') {
           <p class="form-status form-status-ok" role="status">
-            ¡Listo! Tu mensaje se envió. Te respondo pronto.
+            {{ 'contact.success' | t: i18n.locale() }}
           </p>
         }
         @if (submitState === 'error' && activationPending) {
           <p class="form-status form-status-error" role="alert">
-            Revisá tu Gmail (<strong>katiagadea19&#64;gmail.com</strong>) y abrí el link
-            “Activate Form” de FormSubmit. Es solo la primera vez; después el envío queda activo.
+            {{ 'contact.activation' | t: i18n.locale() }}
           </p>
         }
         @if (submitState === 'error' && !activationPending) {
           <p class="form-status form-status-error" role="alert">
-            No se pudo enviar ahora. Probá de nuevo o escribime a
-            <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>.
+            {{ 'contact.error' | t: i18n.locale() }}
           </p>
         }
 
         <div class="form-footer">
-          <p class="form-note">Te responderé lo antes posible.</p>
+          <p class="form-note">{{ 'contact.note' | t: i18n.locale() }}</p>
           <button type="submit" class="send-btn" [disabled]="submitState === 'sending'">
-            {{ submitState === 'sending' ? 'Enviando…' : 'Enviar →' }}
+            {{
+              submitState === 'sending'
+                ? ('contact.sending' | t: i18n.locale())
+                : ('contact.send' | t: i18n.locale())
+            }}
           </button>
         </div>
       </form>

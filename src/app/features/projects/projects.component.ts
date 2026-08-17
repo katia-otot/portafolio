@@ -1,112 +1,82 @@
-import { Component, HostListener, OnDestroy, inject } from '@angular/core';
+import { Component, HostListener, OnDestroy, computed, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Project } from '../../shared/models/project.model';
+import { Project, ProjectHowItWorks } from '../../shared/models/project.model';
 import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
+import { I18nService } from '../../shared/i18n/i18n.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 type PreviewMode = 'iframe' | 'shot' | 'static';
 
+interface ProjectDef {
+  id: string;
+  imageUrl: string;
+  technologies: string[];
+  githubLink?: string;
+  demoLink?: string;
+  howLayout: 'flow' | 'points';
+  stepCount: number;
+  hasFootnote?: boolean;
+}
+
+export type LocalizedProject = Project & { id: string };
+
 @Component({
   selector: 'app-projects',
-  imports: [WaveDividerComponent],
+  imports: [WaveDividerComponent, TranslatePipe],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css',
 })
 export class ProjectsComponent implements OnDestroy {
   private readonly sanitizer = inject(DomSanitizer);
+  readonly i18n = inject(I18nService);
   private readonly iframeTimeoutMs = 8000;
   private readonly iframeTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
-  activeHowTo: Project | null = null;
+  activeHowTo: LocalizedProject | null = null;
 
-  projects: Project[] = [
+  private readonly projectDefs: ProjectDef[] = [
     {
-      title: 'Recetas',
-      description:
-        'Biblioteca de recetas: importás un link, un modelo de IA extrae ingredientes y pasos, los estructura en formato clásico y en tabla CFE, y después podés buscar por ingredientes o estilos de comida.',
+      id: 'recetas',
       imageUrl: 'assets/recetas.png',
       technologies: ['TypeScript', 'Next.js', 'React', 'CSS'],
       githubLink: 'https://github.com/katia-otot/recetas',
       demoLink: 'http://149.50.156.136:443/',
-      howItWorks: {
-        summary:
-          'Biblioteca de recetas: se importa un link, se buscan ingredientes y pasos, y un modelo de IA los transforma a dos estructuras — formato clásico (lista de ingredientes y pasos enumerados) y tabla CFE. Después se pueden hacer búsquedas por ingredientes o estilos de comida.',
-        footnote:
-          'La transformación a formato clásico y a tabla CFE la hace un modelo de IA a partir del contenido del link.',
-        layout: 'flow',
-        steps: [
-          { label: 'Importar link', detail: 'URL de una receta', tone: 'light' },
-          { label: 'Modelo de IA', detail: 'Extrae ingredientes y pasos', tone: 'accent' },
-          { label: 'Formato clásico', detail: 'Lista + pasos numerados', tone: 'light' },
-          { label: 'Tabla CFE', detail: 'Estructura alternativa', tone: 'accent' },
-          { label: 'Búsqueda', detail: 'Ingredientes o estilos', tone: 'light' },
-        ],
-      },
+      howLayout: 'flow',
+      stepCount: 5,
+      hasFootnote: true,
     },
     {
-      title: 'Mapa local por la memoria',
-      description:
-        'Mapa interactivo de sitios de memoria local: elegís un punto de partida, explorás capas (murales, escuelas, abuelas, CCD, lugares de secuestro) y abrís la información de cada lugar en el recorrido.',
+      id: 'mapa',
       imageUrl: 'assets/mapa.png',
       technologies: ['JavaScript', 'CSS', 'HTML'],
       githubLink: 'https://github.com/katia-otot/mapa',
       demoLink: 'https://mapamemoria.netlify.app/',
-      howItWorks: {
-        summary:
-          'Aplicación interactiva para recorrer sitios de memoria en Quequén y Necochea. Elegís de dónde partís, abrís capas temáticas sobre el mapa y consultás la información de cada lugar (qué es, por qué importa en la memoria local).',
-        footnote:
-          'Proyecto colaborativo PSE UNICEN Quequén: el mapa se navega, no es una imagen fija; cada punto suma contexto del sitio de memoria.',
-        layout: 'flow',
-        steps: [
-          { label: 'Elegir origen', detail: 'Quequén · Terminal · Necochea', tone: 'light' },
-          { label: 'Capas de memoria', detail: 'Murales, escuelas, abuelas, CCD…', tone: 'accent' },
-          { label: 'Mapa interactivo', detail: 'Zoom, recorrido y puntos', tone: 'light' },
-          { label: 'Ficha del lugar', detail: 'Info de cada sitio de memoria', tone: 'accent' },
-        ],
-      },
+      howLayout: 'flow',
+      stepCount: 4,
+      hasFootnote: true,
     },
     {
-      title: 'Portafolio',
-      description: 'Mi portafolio personal en Angular: presentación, experiencia, skills, proyectos con demos y contacto.',
+      id: 'portfolio',
       imageUrl: 'assets/portafolio.png',
       technologies: ['Typescript', 'Angular', 'CSS', 'HTML'],
       githubLink: 'https://github.com/katia-otot/portafolio',
       demoLink: 'https://portafoliokatiagadea.netlify.app/',
-      howItWorks: {
-        summary:
-          'Sitio one-page en Angular pensado para presentar mi perfil. No hay backend: el contenido vive en el front, el tema claro/oscuro se guarda en el navegador y las demos se muestran con preview en vivo o captura.',
-        layout: 'points',
-        steps: [
-          {
-            label: 'Secciones',
-            detail: 'Home, sobre mí, experiencia, skills, proyectos y contacto en una sola página con anclas.',
-            tone: 'accent',
-          },
-          {
-            label: 'Tema',
-            detail: 'Claro / oscuro con ThemeService; cursors y gatos se adaptan al modo.',
-            tone: 'light',
-          },
-          {
-            label: 'Proyectos',
-            detail: 'Preview por iframe o captura gratis (mShots), más este panel de “cómo funciona”.',
-            tone: 'accent',
-          },
-          {
-            label: 'Contacto',
-            detail: 'Formulario que abre el cliente de correo (mailto), sin servidor de mail.',
-            tone: 'light',
-          },
-        ],
-      },
+      howLayout: 'points',
+      stepCount: 4,
     },
   ];
+
+  readonly projects = computed<LocalizedProject[]>(() => {
+    this.i18n.locale();
+    return this.projectDefs.map((def) => this.buildProject(def));
+  });
 
   previewMode: Record<string, PreviewMode> = {};
   safeDemoUrls: Record<string, SafeResourceUrl> = {};
 
   constructor() {
-    for (const project of this.projects) {
-      this.initPreview(project);
+    for (const def of this.projectDefs) {
+      this.initPreview(def.id, def.demoLink);
     }
   }
 
@@ -125,7 +95,7 @@ export class ProjectsComponent implements OnDestroy {
     }
   }
 
-  openHowTo(project: Project): void {
+  openHowTo(project: LocalizedProject): void {
     if (!project.howItWorks) {
       return;
     }
@@ -139,16 +109,53 @@ export class ProjectsComponent implements OnDestroy {
     this.unlockScroll();
   }
 
+  /** Keep modal text in sync when the user switches language. */
+  localizedActiveHowTo(): LocalizedProject | null {
+    const current = this.activeHowTo;
+    if (!current) {
+      return null;
+    }
+    return this.projects().find((p) => p.id === current.id) ?? current;
+  }
+
   shotUrl(demoLink: string): string {
     return `https://s.wordpress.com/mshots/v1/${encodeURIComponent(demoLink)}?w=1200`;
   }
 
-  onIframeLoad(title: string): void {
-    this.clearIframeTimer(title);
+  onIframeLoad(id: string): void {
+    this.clearIframeTimer(id);
   }
 
-  onShotError(title: string): void {
-    this.previewMode[title] = 'static';
+  onShotError(id: string): void {
+    this.previewMode[id] = 'static';
+  }
+
+  private buildProject(def: ProjectDef): LocalizedProject {
+    const prefix = `projects.${def.id}`;
+    const how: ProjectHowItWorks = {
+      summary: this.i18n.t(`${prefix}.how.summary`),
+      footnote: def.hasFootnote ? this.i18n.t(`${prefix}.how.footnote`) : undefined,
+      layout: def.howLayout,
+      steps: Array.from({ length: def.stepCount }, (_, index) => {
+        const n = index + 1;
+        return {
+          label: this.i18n.t(`${prefix}.s${n}`),
+          detail: this.i18n.t(`${prefix}.s${n}d`),
+          tone: index % 2 === 0 ? 'accent' : 'light',
+        };
+      }),
+    };
+
+    return {
+      id: def.id,
+      title: this.i18n.t(`${prefix}.title`),
+      description: this.i18n.t(`${prefix}.desc`),
+      imageUrl: def.imageUrl,
+      technologies: def.technologies,
+      githubLink: def.githubLink,
+      demoLink: def.demoLink,
+      howItWorks: how,
+    };
   }
 
   private unlockScroll(): void {
@@ -156,36 +163,33 @@ export class ProjectsComponent implements OnDestroy {
     document.body.classList.remove('howto-open');
   }
 
-  private initPreview(project: Project): void {
-    const demo = project.demoLink;
+  private initPreview(id: string, demo?: string): void {
     if (!demo) {
-      this.previewMode[project.title] = 'static';
+      this.previewMode[id] = 'static';
       return;
     }
 
-    // HTTP demos: free screenshot (no mixed-content iframe).
     if (!demo.startsWith('https://')) {
-      this.previewMode[project.title] = 'shot';
+      this.previewMode[id] = 'shot';
       return;
     }
 
-    // Self-portfolio: local asset (iframe would recurse; mShots keeps a stale cache).
     if (this.isSelfPortfolio(demo)) {
-      this.previewMode[project.title] = 'static';
+      this.previewMode[id] = 'static';
       return;
     }
 
-    this.safeDemoUrls[project.title] = this.sanitizer.bypassSecurityTrustResourceUrl(demo);
-    this.previewMode[project.title] = 'iframe';
+    this.safeDemoUrls[id] = this.sanitizer.bypassSecurityTrustResourceUrl(demo);
+    this.previewMode[id] = 'iframe';
 
     const timer = setTimeout(() => {
-      if (this.previewMode[project.title] === 'iframe') {
-        this.previewMode[project.title] = 'shot';
+      if (this.previewMode[id] === 'iframe') {
+        this.previewMode[id] = 'shot';
       }
-      this.iframeTimers.delete(project.title);
+      this.iframeTimers.delete(id);
     }, this.iframeTimeoutMs);
 
-    this.iframeTimers.set(project.title, timer);
+    this.iframeTimers.set(id, timer);
   }
 
   private isSelfPortfolio(demo: string): boolean {
@@ -197,11 +201,11 @@ export class ProjectsComponent implements OnDestroy {
     }
   }
 
-  private clearIframeTimer(title: string): void {
-    const timer = this.iframeTimers.get(title);
+  private clearIframeTimer(id: string): void {
+    const timer = this.iframeTimers.get(id);
     if (timer) {
       clearTimeout(timer);
-      this.iframeTimers.delete(title);
+      this.iframeTimers.delete(id);
     }
   }
 }

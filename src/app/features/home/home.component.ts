@@ -15,6 +15,9 @@ import { ContactComponent } from '../contact/contact.component';
 import { ExperienceComponent } from '../experience/experience.component';
 import { SkillsComponent } from '../skills/skills.component';
 import { ThemeService } from '../../shared/services/theme.service';
+import { I18nService } from '../../shared/i18n/i18n.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
+import { Locale } from '../../shared/i18n/translations';
 
 interface AmbientBlob {
   el: HTMLElement;
@@ -40,6 +43,7 @@ interface AmbientBlob {
     SkillsComponent,
     ProjectsComponent,
     ContactComponent,
+    TranslatePipe,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
@@ -81,9 +85,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   readonly themeService = inject(ThemeService);
+  readonly i18n = inject(I18nService);
 
   ngOnInit(): void {
     this.themeService.init();
+    this.i18n.init();
   }
 
   ngAfterViewInit(): void {
@@ -129,6 +135,22 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toggleTheme(): void {
     this.themeService.toggle();
+  }
+
+  setLocale(locale: Locale): void {
+    this.i18n.setLocale(locale);
+  }
+
+  cvUrl(): string {
+    return this.i18n.locale() === 'en'
+      ? 'assets/cv/CV_Katia_Gadea_EN.pdf'
+      : 'assets/cv/CV_Katia_Gadea_ES.pdf';
+  }
+
+  cvFilename(): string {
+    return this.i18n.locale() === 'en'
+      ? 'CV_Katia_Gadea_EN.pdf'
+      : 'CV_Katia_Gadea_ES.pdf';
   }
 
   toggleMenu(): void {
@@ -183,7 +205,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.fleeEnabled = false;
       return;
     }
-    // Solo con mouse/trackpad; en touch solo deriva suave.
     this.fleeEnabled = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!this.fleeEnabled) {
       this.mouseX = -9999;

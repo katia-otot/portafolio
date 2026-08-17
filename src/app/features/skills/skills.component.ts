@@ -1,37 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
+import { I18nService } from '../../shared/i18n/i18n.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 export interface SkillItem {
   name: string;
-  /** Devicon class (e.g. devicon-typescript-plain) or Iconify simple-icons slug */
   icon: string;
   pack: 'devicon' | 'simple';
 }
 
 export interface SkillGroup {
-  title: string;
+  id: string;
   icon: string;
-  blurb: string;
   items: SkillItem[];
-}
-
-export interface LanguageItem {
-  name: string;
-  level: string;
 }
 
 @Component({
   selector: 'app-skills',
-  imports: [WaveDividerComponent],
+  imports: [WaveDividerComponent, TranslatePipe],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.css',
 })
 export class SkillsComponent {
-  readonly groups: SkillGroup[] = [
+  readonly i18n = inject(I18nService);
+
+  readonly groupDefs: SkillGroup[] = [
     {
-      title: 'Lenguajes',
+      id: 'g1',
       icon: 'fa-code',
-      blurb: 'Bases con las que escribo producto y APIs.',
       items: [
         { name: 'TypeScript', icon: 'devicon-typescript-plain', pack: 'devicon' },
         { name: 'JavaScript', icon: 'devicon-javascript-plain', pack: 'devicon' },
@@ -40,9 +36,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Frontend web',
+      id: 'g2',
       icon: 'fa-window-maximize',
-      blurb: 'Interfaces web modernas y mantenibles.',
       items: [
         { name: 'React 19', icon: 'devicon-react-original', pack: 'devicon' },
         { name: 'Vite', icon: 'devicon-vitejs-plain', pack: 'devicon' },
@@ -55,9 +50,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Mobile',
+      id: 'g3',
       icon: 'fa-mobile-alt',
-      blurb: 'Apps nativas con React Native y Expo.',
       items: [
         { name: 'React Native', icon: 'devicon-react-original', pack: 'devicon' },
         { name: 'Expo', icon: 'simple-icons:expo', pack: 'simple' },
@@ -69,9 +63,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Backend',
+      id: 'g4',
       icon: 'fa-server',
-      blurb: 'APIs, runtimes y servicios de integración.',
       items: [
         { name: 'Bun', icon: 'simple-icons:bun', pack: 'simple' },
         { name: 'Hono', icon: 'simple-icons:hono', pack: 'simple' },
@@ -83,9 +76,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Datos y ORM',
+      id: 'g5',
       icon: 'fa-database',
-      blurb: 'Persistencia, consultas y modelado de datos.',
       items: [
         { name: 'PostgreSQL', icon: 'devicon-postgresql-plain', pack: 'devicon' },
         { name: 'Sequelize', icon: 'devicon-sequelize-plain', pack: 'devicon' },
@@ -97,9 +89,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Cloud y DevOps',
+      id: 'g6',
       icon: 'fa-cloud',
-      blurb: 'Auth, cloud, contenedores y calidad de código.',
       items: [
         { name: 'Firebase', icon: 'devicon-firebase-plain', pack: 'devicon' },
         { name: 'Firebase Admin', icon: 'devicon-firebase-plain', pack: 'devicon' },
@@ -115,9 +106,8 @@ export class SkillsComponent {
       ],
     },
     {
-      title: 'Otros',
+      id: 'g7',
       icon: 'fa-puzzle-piece',
-      blurb: 'Frameworks, mapas, analytics y tooling.',
       items: [
         { name: 'Angular', icon: 'devicon-angularjs-plain', pack: 'devicon' },
         { name: 'Spring Boot', icon: 'devicon-spring-original', pack: 'devicon' },
@@ -128,8 +118,26 @@ export class SkillsComponent {
     },
   ];
 
-  readonly languages: LanguageItem[] = [
-    { name: 'Español', level: 'NATIVO' },
-    { name: 'Inglés', level: 'A1 · LECTURA TÉCNICA' },
-  ];
+  readonly groups = computed(() => {
+    this.i18n.locale();
+    return this.groupDefs.map((group) => ({
+      ...group,
+      title: this.i18n.t(`skills.${group.id}.title`),
+      blurb: this.i18n.t(`skills.${group.id}.blurb`),
+    }));
+  });
+
+  readonly languages = computed(() => {
+    this.i18n.locale();
+    return [
+      {
+        name: this.i18n.t('skills.lang.es.name'),
+        level: this.i18n.t('skills.lang.es.level'),
+      },
+      {
+        name: this.i18n.t('skills.lang.en.name'),
+        level: this.i18n.t('skills.lang.en.level'),
+      },
+    ];
+  });
 }

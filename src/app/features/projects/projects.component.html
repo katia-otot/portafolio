@@ -17,48 +17,46 @@
         width="1024"
         height="682"
       />
-      <span class="eyebrow">Selección</span>
-      <h2 class="projects-title">Galería de proyectos</h2>
+      <span class="eyebrow">{{ 'projects.eyebrow' | t: i18n.locale() }}</span>
+      <h2 class="projects-title">{{ 'projects.title' | t: i18n.locale() }}</h2>
       <app-wave-divider variant="narrow" />
-      <p class="projects-lead">
-        Estos son algunos de los proyectos en los que he trabajado.
-      </p>
+      <p class="projects-lead">{{ 'projects.lead' | t: i18n.locale() }}</p>
     </header>
 
     <div class="projects-list">
-      @for (project of projects; track project.title; let i = $index; let last = $last) {
+      @for (project of projects(); track project.id; let i = $index; let last = $last) {
         <article class="project-row" [class.project-row-flip]="i % 2 === 1">
           <div class="project-media">
-            @if (project.demoLink && previewMode[project.title] === 'iframe') {
+            @if (project.demoLink && previewMode[project.id] === 'iframe') {
               <iframe
                 class="project-preview-iframe"
-                [src]="safeDemoUrls[project.title]"
-                [title]="'Vista previa de ' + project.title"
+                [src]="safeDemoUrls[project.id]"
+                [title]="'projects.previewAria' | t: i18n.locale(): { title: project.title }"
                 loading="lazy"
                 tabindex="-1"
-                (load)="onIframeLoad(project.title)"
+                (load)="onIframeLoad(project.id)"
               ></iframe>
               <a
                 class="project-preview-hit"
                 [href]="project.demoLink"
                 target="_blank"
                 rel="noopener noreferrer"
-                [attr.aria-label]="'Abrir demo de ' + project.title"
+                [attr.aria-label]="'projects.openDemoAria' | t: i18n.locale(): { title: project.title }"
               ></a>
-            } @else if (project.demoLink && previewMode[project.title] === 'shot') {
+            } @else if (project.demoLink && previewMode[project.id] === 'shot') {
               <a
                 class="project-preview-link"
                 [href]="project.demoLink"
                 target="_blank"
                 rel="noopener noreferrer"
-                [attr.aria-label]="'Abrir demo de ' + project.title"
+                [attr.aria-label]="'projects.openDemoAria' | t: i18n.locale(): { title: project.title }"
               >
                 <img
                   class="project-preview-img"
                   [src]="shotUrl(project.demoLink)"
-                  [alt]="'Captura de ' + project.title"
+                  [alt]="'projects.shotAlt' | t: i18n.locale(): { title: project.title }"
                   loading="lazy"
-                  (error)="onShotError(project.title)"
+                  (error)="onShotError(project.id)"
                 />
               </a>
             } @else {
@@ -91,7 +89,7 @@
                   class="project-link-primary"
                   (click)="openHowTo(project)"
                 >
-                  Cómo funciona
+                  {{ 'projects.how' | t: i18n.locale() }}
                 </button>
               }
               @if (project.demoLink) {
@@ -101,7 +99,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Demo →
+                  {{ 'projects.demo' | t: i18n.locale() }}
                 </a>
               }
               @if (project.githubLink) {
@@ -111,7 +109,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  GitHub ↗
+                  {{ 'projects.github' | t: i18n.locale() }}
                 </a>
               }
             </div>
@@ -126,24 +124,25 @@
   </div>
 </div>
 
-@if (activeHowTo?.howItWorks; as how) {
+@if (localizedActiveHowTo(); as active) {
+  @if (active.howItWorks; as how) {
   <div
     class="howto-overlay"
     role="dialog"
     aria-modal="true"
-    [attr.aria-labelledby]="'howto-title-' + activeHowTo!.title"
+    [attr.aria-labelledby]="'howto-title-' + active.id"
     (click)="closeHowTo()"
   >
     <div class="howto-panel" (click)="$event.stopPropagation()">
       <header class="howto-header">
         <div class="howto-heading">
-          <p class="howto-kicker">Cómo funciona</p>
-          <h3 class="howto-title" [id]="'howto-title-' + activeHowTo!.title">
-            {{ activeHowTo!.title }}
+          <p class="howto-kicker">{{ 'projects.how' | t: i18n.locale() }}</p>
+          <h3 class="howto-title" [id]="'howto-title-' + active.id">
+            {{ active.title }}
           </h3>
         </div>
         <button type="button" class="howto-close" (click)="closeHowTo()">
-          Cerrar ×
+          {{ 'projects.close' | t: i18n.locale() }}
         </button>
       </header>
 
@@ -192,28 +191,29 @@
       }
 
       <div class="howto-actions">
-        @if (activeHowTo!.githubLink) {
+        @if (active.githubLink) {
           <a
-            [href]="activeHowTo!.githubLink"
+            [href]="active.githubLink"
             class="project-link-primary"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Ver en GitHub ↗
+            {{ 'projects.viewGithub' | t: i18n.locale() }}
           </a>
         }
-        @if (activeHowTo!.demoLink) {
+        @if (active.demoLink) {
           <a
-            [href]="activeHowTo!.demoLink"
+            [href]="active.demoLink"
             class="project-link-secondary"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Abrir demo →
+            {{ 'projects.openDemo' | t: i18n.locale() }}
           </a>
         }
       </div>
       </div>
     </div>
   </div>
+  }
 }

@@ -1,6 +1,15 @@
 <div class="fullpage-container">
-  <nav class="portfolio-nav" aria-label="Secciones del portafolio" [class.nav-open]="menuOpen">
-    <button type="button" class="nav-brand" (click)="goHome()" aria-label="Inicio — Katia">
+  <nav
+    class="portfolio-nav"
+    [attr.aria-label]="'nav.aria' | t: i18n.locale()"
+    [class.nav-open]="menuOpen"
+  >
+    <button
+      type="button"
+      class="nav-brand"
+      (click)="goHome()"
+      [attr.aria-label]="'nav.homeAria' | t: i18n.locale()"
+    >
       <span class="nav-brand-mark" aria-hidden="true">
         <img
           class="nav-brand-cat theme-cat-dark"
@@ -21,11 +30,38 @@
     </button>
 
     <div class="nav-right">
+      <div
+        class="lang-toggle"
+        role="group"
+        [attr.aria-label]="'nav.langAria' | t: i18n.locale()"
+      >
+        <button
+          type="button"
+          class="lang-btn"
+          [class.lang-btn-active]="i18n.locale() === 'es'"
+          (click)="setLocale('es')"
+        >
+          {{ 'nav.langEs' | t: i18n.locale() }}
+        </button>
+        <button
+          type="button"
+          class="lang-btn"
+          [class.lang-btn-active]="i18n.locale() === 'en'"
+          (click)="setLocale('en')"
+        >
+          {{ 'nav.langEn' | t: i18n.locale() }}
+        </button>
+      </div>
+
       <button
         type="button"
         class="theme-toggle"
         (click)="toggleTheme()"
-        [attr.aria-label]="themeService.theme() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+        [attr.aria-label]="
+          themeService.theme() === 'dark'
+            ? ('nav.themeToLight' | t: i18n.locale())
+            : ('nav.themeToDark' | t: i18n.locale())
+        "
       >
         @if (themeService.theme() === 'dark') {
           <i class="fas fa-sun" aria-hidden="true"></i>
@@ -40,7 +76,11 @@
         (click)="toggleMenu()"
         [attr.aria-expanded]="menuOpen"
         aria-controls="nav-menu"
-        [attr.aria-label]="menuOpen ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-label]="
+          menuOpen
+            ? ('nav.closeMenu' | t: i18n.locale())
+            : ('nav.openMenu' | t: i18n.locale())
+        "
       >
         <span class="nav-burger-lines" aria-hidden="true">
           <span></span>
@@ -54,11 +94,21 @@
         class="nav-links"
         [class.nav-links-open]="menuOpen"
       >
-        <button type="button" (click)="navigateTo('about')">Sobre mí</button>
-        <button type="button" (click)="navigateTo('experience')">Experiencia</button>
-        <button type="button" (click)="navigateTo('skills')">Habilidades</button>
-        <button type="button" (click)="navigateTo('projects')">Proyectos</button>
-        <button type="button" class="nav-cta" (click)="navigateTo('contact')">Contacto</button>
+        <button type="button" (click)="navigateTo('about')">
+          {{ 'nav.about' | t: i18n.locale() }}
+        </button>
+        <button type="button" (click)="navigateTo('experience')">
+          {{ 'nav.experience' | t: i18n.locale() }}
+        </button>
+        <button type="button" (click)="navigateTo('skills')">
+          {{ 'nav.skills' | t: i18n.locale() }}
+        </button>
+        <button type="button" (click)="navigateTo('projects')">
+          {{ 'nav.projects' | t: i18n.locale() }}
+        </button>
+        <button type="button" class="nav-cta" (click)="navigateTo('contact')">
+          {{ 'nav.contact' | t: i18n.locale() }}
+        </button>
       </div>
     </div>
   </nav>
@@ -67,7 +117,7 @@
     <button
       type="button"
       class="nav-backdrop"
-      aria-label="Cerrar menú"
+      [attr.aria-label]="'nav.closeMenu' | t: i18n.locale()"
       (click)="closeMenu()"
     ></button>
   }
@@ -82,19 +132,28 @@
   <section class="section hero-section" id="home">
     <div class="hero-grid">
       <div class="hero-copy">
-        <p class="hero-eyebrow">Portafolio</p>
-        <h1 class="hero-headline">Hola, soy Katia Gadea</h1>
-        <p class="hero-tagline">Desarrolladora Full-Stack · Web &amp; Mobile</p>
-        <p class="hero-sub">
-          Productos claros, código mantenible y foco en la experiencia de usuario.
-        </p>
-        <button
-          type="button"
-          class="btn btn-primary px-4 py-2 py-md-3"
-          (click)="scrollToContact()"
-        >
-          Contactame
-        </button>
+        <p class="hero-eyebrow">{{ 'hero.eyebrow' | t: i18n.locale() }}</p>
+        <h1 class="hero-headline">{{ 'hero.headline' | t: i18n.locale() }}</h1>
+        <p class="hero-tagline">{{ 'hero.tagline' | t: i18n.locale() }}</p>
+        <p class="hero-sub">{{ 'hero.sub' | t: i18n.locale() }}</p>
+        <div class="hero-actions">
+          <button
+            type="button"
+            class="btn btn-primary px-4 py-2 py-md-3"
+            (click)="scrollToContact()"
+          >
+            {{ 'hero.cta' | t: i18n.locale() }}
+          </button>
+          <a
+            class="btn btn-cv px-4 py-2 py-md-3"
+            [href]="cvUrl()"
+            [attr.download]="cvFilename()"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ 'hero.cv' | t: i18n.locale() }}
+          </a>
+        </div>
       </div>
       <div class="hero-art" aria-hidden="true">
         <img

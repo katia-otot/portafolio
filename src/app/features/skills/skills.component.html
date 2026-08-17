@@ -17,16 +17,14 @@
         width="1024"
         height="682"
       />
-      <span class="eyebrow">Stack</span>
-      <h2 class="skills-title">Habilidades técnicas</h2>
+      <span class="eyebrow">{{ 'skills.eyebrow' | t: i18n.locale() }}</span>
+      <h2 class="skills-title">{{ 'skills.title' | t: i18n.locale() }}</h2>
       <app-wave-divider variant="narrow" />
-      <p class="skills-lead">
-        Herramientas y tecnologías que uso en productos web, mobile y backend.
-      </p>
+      <p class="skills-lead">{{ 'skills.lead' | t: i18n.locale() }}</p>
     </header>
 
     <div class="skills-columns">
-      @for (group of groups; track group.title) {
+      @for (group of groups(); track group.id) {
         <article class="skill-block">
           <header class="skill-block-head">
             <div class="skill-block-title-row">
@@ -65,13 +63,13 @@
           <span class="skill-block-icon" aria-hidden="true">
             <i class="fas fa-globe"></i>
           </span>
-          <h3 class="group-title">Idiomas</h3>
+          <h3 class="group-title">{{ 'skills.languagesTitle' | t: i18n.locale() }}</h3>
         </div>
         <app-wave-divider />
       </header>
 
       <ul class="languages-row">
-        @for (lang of languages; track lang.name) {
+        @for (lang of languages(); track lang.name) {
           <li class="language-item">
             <span class="language-name">{{ lang.name }}</span>
             <span class="language-level">{{ lang.level }}</span>

@@ -17,23 +17,15 @@
         width="682"
         height="1024"
       />
-      <span class="eyebrow">Perfil</span>
-      <h2 class="about-title">Acerca de mí</h2>
+      <span class="eyebrow">{{ 'about.eyebrow' | t: i18n.locale() }}</span>
+      <h2 class="about-title">{{ 'about.title' | t: i18n.locale() }}</h2>
       <app-wave-divider variant="narrow" />
     </header>
 
     <div class="about-content">
-      <p class="about-text">
-        Soy Técnica Universitaria en Desarrollo de Aplicaciones Informáticas (UNICEN) y trabajo como desarrolladora full-stack. Me muevo entre web y mobile: frontend, backend, autenticación, APIs, bases de datos y servicios cloud.
-      </p>
-
-      <p class="about-text">
-        Me recibí en UNICEN Quequén de la Tecnicatura Universitaria en Desarrollo de Aplicaciones Informáticas (2022 — 2026).
-      </p>
-
-      <p class="about-text">
-        Me gusta armar productos claros, fáciles de mantener y pensados para quien los usa. Quiero seguir creciendo en proyectos donde pueda aportar en web, mobile, integración de APIs y despliegues en la nube.
-      </p>
+      <p class="about-text">{{ 'about.p1' | t: i18n.locale() }}</p>
+      <p class="about-text">{{ 'about.p2' | t: i18n.locale() }}</p>
+      <p class="about-text">{{ 'about.p3' | t: i18n.locale() }}</p>
     </div>
   </div>
 </div>

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
+import { I18nService } from '../../shared/i18n/i18n.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 export interface ExperienceBullet {
   text: string;
@@ -15,32 +17,29 @@ export interface ExperienceItem {
 
 @Component({
   selector: 'app-experience',
-  imports: [WaveDividerComponent],
+  imports: [WaveDividerComponent, TranslatePipe],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })
 export class ExperienceComponent {
-  readonly experiences: ExperienceItem[] = [
-    {
-      role: 'Desarrolladora de Software Full-Stack',
-      company: 'Unit0 Studio',
-      period: 'Octubre 2025 — Mayo 2026',
-      summary:
-        'Desarrollo de aplicaciones web y mobile a medida: contactos, turnos y mensajería.',
-      bullets: [
-        {
-          text: 'Web de contactos: listado de personas con emails, celulares y notas por contacto, con registro e inicio de sesión con Google.',
-        },
-        {
-          text: 'App móvil para lavaderos de autos: registro de turnos, autenticación con Google y persistencia de las reservas en Firebase.',
-        },
-        {
-          text: 'Sistema para guardar mensajes entrantes de WhatsApp e interfaz de chat estilo WhatsApp para enviar y conservar la conversación.',
-        },
-        {
-          text: 'Backend e integraciones (APIs, auth, almacenamiento y webhooks) para sostener esas apps en web y mobile.',
-        },
-      ],
-    },
-  ];
+  readonly i18n = inject(I18nService);
+
+  readonly experiences = computed<ExperienceItem[]>(() => {
+    const t = (key: string) => this.i18n.t(key);
+    this.i18n.locale();
+    return [
+      {
+        role: t('experience.role'),
+        company: 'Unit0 Studio',
+        period: t('experience.period'),
+        summary: t('experience.summary'),
+        bullets: [
+          { text: t('experience.b1') },
+          { text: t('experience.b2') },
+          { text: t('experience.b3') },
+          { text: t('experience.b4') },
+        ],
+      },
+    ];
+  });
 }

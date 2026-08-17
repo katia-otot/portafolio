@@ -289,6 +289,39 @@
   border-color: var(--color-border-strong);
 }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-surface-raised);
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.55rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.lang-btn-active {
+  background: rgba(var(--color-primary-rgb), 0.16);
+  color: var(--color-primary);
+}
+
+.lang-btn:hover:not(.lang-btn-active) {
+  color: var(--color-primary);
+}
+
 @media (min-width: 900px) {
   .nav-burger,
   .nav-backdrop {
@@ -379,6 +412,40 @@
   filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.28));
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  justify-content: center;
+}
+
+.btn.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn.btn-cv:hover,
+.btn.btn-cv:focus-visible {
+  background: var(--color-primary);
+  color: #fffaf4;
+  border-color: var(--color-primary);
+}
+
 .hero-copy {
   text-align: center;
   position: relative;
@@ -393,6 +460,10 @@
 
   .hero-copy {
     text-align: left;
+  }
+
+  .hero-actions {
+    justify-content: flex-start;
   }
 
   .hero-art {

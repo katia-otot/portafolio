@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
+import { I18nService } from '../../shared/i18n/i18n.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule, WaveDividerComponent],
+  imports: [FormsModule, WaveDividerComponent, TranslatePipe],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent {
+  readonly i18n = inject(I18nService);
+
   /** Destino del correo (FormSubmit → Gmail). */
   private readonly formEndpoint =
     'https://formsubmit.co/ajax/katiagadea19@gmail.com';
@@ -33,6 +37,11 @@ export class ContactComponent {
 
     this.submitState = 'sending';
 
+    const trimmedName = this.name.trim();
+    const subject = trimmedName
+      ? this.i18n.t('contact.subjectNamed', { name: trimmedName })
+      : this.i18n.t('contact.subjectDefault');
+
     try {
       const response = await fetch(this.formEndpoint, {
         method: 'POST',
@@ -41,12 +50,10 @@ export class ContactComponent {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          name: this.name.trim(),
+          name: trimmedName,
           email: this.email.trim(),
           message: this.message.trim(),
-          _subject: this.name.trim()
-            ? `Contacto portafolio — ${this.name.trim()}`
-            : 'Contacto desde el portafolio',
+          _subject: subject,
           _template: 'table',
           _captcha: 'false',
         }),
