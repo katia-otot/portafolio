@@ -88,6 +88,24 @@ export const TRANSLATIONS: Record<Locale, TranslationDict> = {
     'projects.openDemoAria': 'Abrir demo de {{title}}',
     'projects.shotAlt': 'Captura de {{title}}',
 
+    'projects.plantas.title': 'Plantas del patio',
+    'projects.plantas.desc':
+      'App web para llevar el control de las plantas del patio: riego por estación, postergar por lluvia, fertilizante, poda, anti-bichos e historial con fotos.',
+    'projects.plantas.how.summary':
+      'Web para el cuidado diario del patio. En Hoy ves lo pendiente y registrás lluvia; en Plantas das de alta cada una con intervalos de riego verano/invierno; en la ficha marcás regué, fertilicé, podé o tratamiento y guardás fotos en el historial.',
+    'projects.plantas.how.footnote':
+      'Los datos viven en SQLite con Prisma; las fotos se guardan en el servidor. Pensada para usar en el celular o en la PC.',
+    'projects.plantas.s1': 'Hoy',
+    'projects.plantas.s1d': 'Tareas y acciones rápidas',
+    'projects.plantas.s2': 'Plantas',
+    'projects.plantas.s2d': 'Alta e intervalos de riego',
+    'projects.plantas.s3': 'Estación',
+    'projects.plantas.s3d': 'Verano u invierno',
+    'projects.plantas.s4': 'Acciones',
+    'projects.plantas.s4d': 'Riego, fertilizante, poda…',
+    'projects.plantas.s5': 'Historial',
+    'projects.plantas.s5d': 'Eventos y fotos',
+
     'projects.recetas.title': 'Recetas',
     'projects.recetas.desc':
       'Biblioteca de recetas: importás un link, un modelo de IA extrae ingredientes y pasos, los estructura en formato clásico y en tabla CFE, y después podés buscar por ingredientes o estilos de comida.',
@@ -251,6 +269,24 @@ export const TRANSLATIONS: Record<Locale, TranslationDict> = {
     'projects.previewAria': 'Preview of {{title}}',
     'projects.openDemoAria': 'Open demo for {{title}}',
     'projects.shotAlt': 'Screenshot of {{title}}',
+
+    'projects.plantas.title': 'Patio plants',
+    'projects.plantas.desc':
+      'Web app to track patio plants: seasonal watering, postpone for rain, fertilizer, pruning, pest treatment, and a photo history.',
+    'projects.plantas.how.summary':
+      'A daily care web app for the patio. Today shows pending tasks and rain logging; Plants lets you add each plant with summer/winter watering intervals; on the plant page you mark watered, fertilized, pruned, or treated and attach photos to the history.',
+    'projects.plantas.how.footnote':
+      'Data lives in SQLite with Prisma; photos are stored on the server. Built to use on phone or desktop.',
+    'projects.plantas.s1': 'Today',
+    'projects.plantas.s1d': 'Tasks and quick actions',
+    'projects.plantas.s2': 'Plants',
+    'projects.plantas.s2d': 'Add plants and watering intervals',
+    'projects.plantas.s3': 'Season',
+    'projects.plantas.s3d': 'Summer or winter',
+    'projects.plantas.s4': 'Actions',
+    'projects.plantas.s4d': 'Water, fertilizer, pruning…',
+    'projects.plantas.s5': 'History',
+    'projects.plantas.s5d': 'Events and photos',
 
     'projects.recetas.title': 'Recipes',
     'projects.recetas.desc':

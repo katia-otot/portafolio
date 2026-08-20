@@ -36,6 +36,16 @@ export class ProjectsComponent implements OnDestroy {
 
   private readonly projectDefs: ProjectDef[] = [
     {
+      id: 'plantas',
+      imageUrl: 'assets/plantas.png',
+      technologies: ['TypeScript', 'Next.js', 'React', 'Prisma'],
+      githubLink: 'https://github.com/katia-otot/plantas',
+      demoLink: 'http://149.50.156.136/plantas',
+      howLayout: 'flow',
+      stepCount: 5,
+      hasFootnote: true,
+    },
+    {
       id: 'recetas',
       imageUrl: 'assets/recetas.png',
       technologies: ['TypeScript', 'Next.js', 'React', 'CSS'],
