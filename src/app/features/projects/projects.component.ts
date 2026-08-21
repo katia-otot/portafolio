@@ -16,6 +16,8 @@ interface ProjectDef {
   howLayout: 'flow' | 'points';
   stepCount: number;
   hasFootnote?: boolean;
+  /** Prefer local screenshot over iframe/mShots (e.g. HTTP demos with stale captures). */
+  preferStatic?: boolean;
 }
 
 export type LocalizedProject = Project & { id: string };
@@ -44,6 +46,7 @@ export class ProjectsComponent implements OnDestroy {
       howLayout: 'flow',
       stepCount: 5,
       hasFootnote: true,
+      preferStatic: true,
     },
     {
       id: 'recetas',
@@ -86,7 +89,11 @@ export class ProjectsComponent implements OnDestroy {
 
   constructor() {
     for (const def of this.projectDefs) {
-      this.initPreview(def.id, def.demoLink);
+      if (def.preferStatic) {
+        this.previewMode[def.id] = 'static';
+      } else {
+        this.initPreview(def.id, def.demoLink);
+      }
     }
   }
 
