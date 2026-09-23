@@ -285,9 +285,9 @@ export const TRANSLATIONS: Record<Locale, TranslationDict> = {
     'projects.anthos.title': 'Anthos',
     'projects.anthos.subtitle': 'A better-organized garden.',
     'projects.anthos.desc':
-      'A web app for managing a shared garden, with a schedule for watering, fertilizing, pruning, and plant treatments. Features include watering adjustments based on the season and rainfall, plant profiles with photos, a garden map, a care history, and reminders.',
+      'A web app for managing a garden, with a schedule for watering, fertilizing, pruning, and plant treatments. Features include watering adjustments based on the season and rainfall, plant profiles with photos, a garden map, a care history, and reminders.',
     'projects.anthos.descMobile':
-      'A web app for managing a shared garden, with a schedule for watering, fertilizing, pruning, and plant treatments. Features include watering adjustments based on the season and rainfall, plant profiles with photos, a garden map, a care history, and reminders.',
+      'A web app for managing a garden, with a schedule for watering, fertilizing, pruning, and plant treatments. Features include watering adjustments based on the season and rainfall, plant profiles with photos, a garden map, a care history, and reminders.',
     'projects.anthos.how.summary':
       'Anthos is a web app for day-to-day garden care. The Today view shows upcoming tasks and lets you log rainfall. In the Plants view, you can add plants and set separate watering intervals for summer and winter. Each plant’s page lets you record watering, fertilizing, pruning, and treatments, and add photos to its care history.',
     'projects.anthos.how.footnote':
