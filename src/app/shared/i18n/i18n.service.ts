@@ -37,6 +37,10 @@ export class I18nService {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('lang', locale);
       document.title = this.t('doc.title');
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) {
+        meta.setAttribute('content', this.t('doc.description'));
+      }
     }
     try {
       localStorage.setItem(this.storageKey, locale);

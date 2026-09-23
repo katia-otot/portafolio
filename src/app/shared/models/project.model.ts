@@ -6,6 +6,7 @@ export interface HowItWorksStep {
 
 export interface ProjectHowItWorks {
   summary: string;
+  summaryParagraphs: string[];
   footnote?: string;
   /** flow = pasos en secuencia | points = tarjetas sin diagrama */
   layout: 'flow' | 'points';

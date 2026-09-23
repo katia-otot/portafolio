@@ -37,6 +37,9 @@ yarn-error.log
 testem.log
 /typings
 
+# Local redesign / tool scratch folders
+.tmp-*/
+
 # System files
 .DS_Store
 Thumbs.db

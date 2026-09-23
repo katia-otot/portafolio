@@ -4,111 +4,104 @@
     [attr.aria-label]="'nav.aria' | t: i18n.locale()"
     [class.nav-open]="menuOpen"
   >
-    <button
-      type="button"
-      class="nav-brand"
-      (click)="goHome()"
-      [attr.aria-label]="'nav.homeAria' | t: i18n.locale()"
-    >
-      <span class="nav-brand-mark" aria-hidden="true">
-        <img
-          class="nav-brand-cat theme-cat-dark"
-          src="assets/cats/cat-walk.png"
-          alt=""
-          width="64"
-          height="43"
-        />
-        <img
-          class="nav-brand-cat theme-cat-light"
-          src="assets/cats/cat-walk-light.png"
-          alt=""
-          width="64"
-          height="43"
-        />
-      </span>
-      <span class="nav-brand-name">Katia</span>
-    </button>
-
-    <div class="nav-right">
-      <div
-        class="lang-toggle"
-        role="group"
-        [attr.aria-label]="'nav.langAria' | t: i18n.locale()"
-      >
+    <div class="editorial-shell nav-shell">
+      <div class="nav-brand-block">
         <button
           type="button"
-          class="lang-btn"
-          [class.lang-btn-active]="i18n.locale() === 'es'"
-          (click)="setLocale('es')"
+          class="nav-brand"
+          (click)="goHome()"
+          [attr.aria-label]="'nav.homeAria' | t: i18n.locale()"
         >
-          {{ 'nav.langEs' | t: i18n.locale() }}
+          Katia Gadea
         </button>
-        <button
-          type="button"
-          class="lang-btn"
-          [class.lang-btn-active]="i18n.locale() === 'en'"
-          (click)="setLocale('en')"
-        >
-          {{ 'nav.langEn' | t: i18n.locale() }}
-        </button>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <p class="nav-descriptor">
+          <span>{{ 'nav.descriptor1' | t: i18n.locale() }}</span>
+          <span>{{ 'nav.descriptor2' | t: i18n.locale() }}</span>
+        </p>
       </div>
 
-      <button
-        type="button"
-        class="theme-toggle"
-        (click)="toggleTheme()"
-        [attr.aria-label]="
-          themeService.theme() === 'dark'
-            ? ('nav.themeToLight' | t: i18n.locale())
-            : ('nav.themeToDark' | t: i18n.locale())
-        "
-      >
-        @if (themeService.theme() === 'dark') {
-          <i class="fas fa-sun" aria-hidden="true"></i>
-        } @else {
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        }
-      </button>
+      <div class="nav-right">
+        <div
+          class="lang-toggle"
+          role="group"
+          [attr.aria-label]="'nav.langAria' | t: i18n.locale()"
+        >
+          <button
+            type="button"
+            class="lang-btn"
+            [class.lang-btn-active]="i18n.locale() === 'es'"
+            (click)="setLocale('es')"
+          >
+            {{ 'nav.langEs' | t: i18n.locale() }}
+          </button>
+          <button
+            type="button"
+            class="lang-btn"
+            [class.lang-btn-active]="i18n.locale() === 'en'"
+            (click)="setLocale('en')"
+          >
+            {{ 'nav.langEn' | t: i18n.locale() }}
+          </button>
+        </div>
 
-      <button
-        type="button"
-        class="nav-burger"
-        (click)="toggleMenu()"
-        [attr.aria-expanded]="menuOpen"
-        aria-controls="nav-menu"
-        [attr.aria-label]="
-          menuOpen
-            ? ('nav.closeMenu' | t: i18n.locale())
-            : ('nav.openMenu' | t: i18n.locale())
-        "
-      >
-        <span class="nav-burger-lines" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
+        <button
+          type="button"
+          class="theme-toggle"
+          (click)="toggleTheme()"
+          [attr.aria-label]="
+            themeService.theme() === 'dark'
+              ? ('nav.themeToLight' | t: i18n.locale())
+              : ('nav.themeToDark' | t: i18n.locale())
+          "
+        >
+          @if (themeService.theme() === 'dark') {
+            <app-editorial-icon name="sun" [size]="18" />
+          } @else {
+            <app-editorial-icon name="moon" [size]="18" />
+          }
+        </button>
 
-      <div
-        id="nav-menu"
-        class="nav-links"
-        [class.nav-links-open]="menuOpen"
-      >
-        <button type="button" (click)="navigateTo('about')">
-          {{ 'nav.about' | t: i18n.locale() }}
+        <button
+          type="button"
+          class="nav-burger"
+          (click)="toggleMenu()"
+          [attr.aria-expanded]="menuOpen"
+          aria-controls="nav-menu"
+          [attr.aria-label]="
+            menuOpen
+              ? ('nav.closeMenu' | t: i18n.locale())
+              : ('nav.openMenu' | t: i18n.locale())
+          "
+        >
+          @if (menuOpen) {
+            <app-editorial-icon name="close" [size]="20" />
+          } @else {
+            <app-editorial-icon name="menu" [size]="20" />
+          }
         </button>
-        <button type="button" (click)="navigateTo('experience')">
-          {{ 'nav.experience' | t: i18n.locale() }}
-        </button>
-        <button type="button" (click)="navigateTo('skills')">
-          {{ 'nav.skills' | t: i18n.locale() }}
-        </button>
-        <button type="button" (click)="navigateTo('projects')">
-          {{ 'nav.projects' | t: i18n.locale() }}
-        </button>
-        <button type="button" class="nav-cta" (click)="navigateTo('contact')">
-          {{ 'nav.contact' | t: i18n.locale() }}
-        </button>
+
+        <div
+          id="nav-menu"
+          class="nav-links"
+          [class.nav-links-open]="menuOpen"
+        >
+          <button type="button" (click)="navigateTo('proyectos')">
+            {{ 'nav.projects' | t: i18n.locale() }}
+          </button>
+          <button type="button" (click)="navigateTo('experiencia')">
+            {{ 'nav.experience' | t: i18n.locale() }}
+          </button>
+          <button type="button" (click)="navigateTo('sobre-mi')">
+            {{ 'nav.about' | t: i18n.locale() }}
+          </button>
+          <button type="button" (click)="navigateTo('tecnologias')">
+            {{ 'nav.skills' | t: i18n.locale() }}
+          </button>
+          <button type="button" class="nav-cta" (click)="navigateTo('contacto')">
+            {{ 'nav.contact' | t: i18n.locale() }}
+          </button>
+        </div>
       </div>
     </div>
   </nav>
@@ -122,75 +115,143 @@
     ></button>
   }
 
-  <div class="ambient-bg" #ambientBg aria-hidden="true">
-    <span class="glow glow-a"></span>
-    <span class="glow glow-b"></span>
-    <span class="glow glow-c"></span>
-    <span class="glow glow-d"></span>
-  </div>
+  <section class="section hero-section" id="inicio">
+      <div class="editorial-shell hero-grid">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">{{ 'hero.eyebrow' | t: i18n.locale() }}</p>
+          <h1 class="hero-headline">
+            <span class="hero-line-group"
+              >{{ 'hero.line1' | t: i18n.locale() }}
+              {{ 'hero.line2' | t: i18n.locale() }}&nbsp;</span
+            ><span class="hero-line-em"
+              ><em>{{ 'hero.lineEm' | t: i18n.locale() }}</em></span
+            >
+          </h1>
 
-  <section class="section hero-section" id="home">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="hero-eyebrow">{{ 'hero.eyebrow' | t: i18n.locale() }}</p>
-        <h1 class="hero-headline">{{ 'hero.headline' | t: i18n.locale() }}</h1>
-        <p class="hero-tagline">{{ 'hero.tagline' | t: i18n.locale() }}</p>
-        <p class="hero-sub">{{ 'hero.sub' | t: i18n.locale() }}</p>
-        <div class="hero-actions">
-          <button
-            type="button"
-            class="btn btn-primary px-4 py-2 py-md-3"
-            (click)="scrollToContact()"
+          <div class="hero-mobile-compose" aria-hidden="true">
+            <div class="hero-mobile-compose__art">
+              <div class="theme-art theme-art--hero">
+                <img
+                  class="theme-art__light"
+                  src="assets/editorial/illustrations/hero-botanico-lunar.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                />
+                <img
+                  class="theme-art__dark"
+                  src="assets/editorial/illustrations/hero-botanico-lunar-dark.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <div class="hero-mobile-compose__panel">
+              <div class="hero-code hero-code--flow">
+                <div class="hero-code-bar">
+                  <span></span><span></span><span></span>
+                </div>
+                <pre>// {{ 'hero.code1' | t: i18n.locale() }}
+// {{ 'hero.code2' | t: i18n.locale() }}
+// {{ 'hero.code3' | t: i18n.locale() }}</pre>
+              </div>
+            </div>
+          </div>
+
+          <p class="hero-sub">{{ 'hero.sub' | t: i18n.locale() }}</p>
+          <div class="hero-actions">
+            <button type="button" class="hero-btn" (click)="scrollToProjects()">
+              {{ 'hero.cta' | t: i18n.locale() }}
+              <app-editorial-icon name="arrow-up-right" [size]="18" />
+            </button>
+            <a
+              class="btn-cv"
+              [href]="cvUrl()"
+              [attr.download]="cvFilename()"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ 'hero.cv' | t: i18n.locale() }}
+              <app-editorial-icon name="download" [size]="18" />
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <div class="hero-ornaments" aria-hidden="true">
+            <div class="hero-code">
+              <div class="hero-code-bar">
+                <span></span><span></span><span></span>
+              </div>
+              <pre>// {{ 'hero.code1' | t: i18n.locale() }}
+// {{ 'hero.code2' | t: i18n.locale() }}
+// {{ 'hero.code3' | t: i18n.locale() }}</pre>
+            </div>
+          </div>
+          <div
+            class="hero-art-tilt"
+            #heroTiltRoot
+            aria-hidden="true"
+            (pointerenter)="onHeroTiltEnter($event)"
+            (pointermove)="onHeroTiltMove($event)"
+            (pointerleave)="onHeroTiltLeave()"
           >
-            {{ 'hero.cta' | t: i18n.locale() }}
-          </button>
-          <a
-            class="btn btn-cv px-4 py-2 py-md-3"
-            [href]="cvUrl()"
-            [attr.download]="cvFilename()"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ 'hero.cv' | t: i18n.locale() }}
-          </a>
+            <div class="hero-art-tilt__inner" #heroTiltInner>
+              <div class="theme-art theme-art--hero">
+                <img
+                  class="theme-art__light"
+                  src="assets/editorial/illustrations/hero-botanico-lunar.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                />
+                <img
+                  class="theme-art__dark"
+                  src="assets/editorial/illustrations/hero-botanico-lunar-dark.png"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <img
-          class="hero-cat theme-cat-dark"
-          src="assets/cats/cat-walk.png"
-          alt=""
-          width="1024"
-          height="682"
-        />
-        <img
-          class="hero-cat theme-cat-light"
-          src="assets/cats/cat-walk-light.png"
-          alt=""
-          width="1024"
-          height="682"
-        />
+
+      <div class="hero-strip-wrap" [attr.aria-label]="'hero.stripAria' | t: i18n.locale()">
+        <div class="editorial-shell hero-strip">
+          <ul class="hero-strip-left">
+            <li><span>01</span> / {{ 'hero.strip1' | t: i18n.locale() }}</li>
+            <li><span>02</span> / {{ 'hero.strip2' | t: i18n.locale() }}</li>
+            <li><span>03</span> / {{ 'hero.strip3' | t: i18n.locale() }}</li>
+          </ul>
+          <p class="hero-strip-right">{{ 'hero.stripRight' | t: i18n.locale() }}</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="about">
-    <app-about></app-about>
-  </section>
+    <section class="section" id="proyectos">
+      <app-projects></app-projects>
+    </section>
 
-  <section class="section" id="experience">
-    <app-experience></app-experience>
-  </section>
+    <section class="section" id="experiencia">
+      <app-experience></app-experience>
+    </section>
 
-  <section class="section" id="skills">
-    <app-skills></app-skills>
-  </section>
+    <section class="section" id="sobre-mi">
+      <app-about></app-about>
+    </section>
 
-  <section class="section" id="projects">
-    <app-projects></app-projects>
-  </section>
+    <section class="section" id="tecnologias">
+      <app-skills></app-skills>
+    </section>
 
-  <section class="section" id="contact">
-    <app-contact #contact></app-contact>
-  </section>
+    <section class="section" id="contacto">
+      <app-contact></app-contact>
+    </section>
 </div>

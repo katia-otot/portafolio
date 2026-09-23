@@ -1,219 +1,268 @@
 <div class="projects-root">
-  <div class="projects-inner">
+  <div class="editorial-shell projects-inner">
     <header class="projects-header">
-      <img
-        class="projects-cat theme-cat-dark"
-        src="assets/cats/cat-sleep.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
-      <img
-        class="projects-cat theme-cat-light"
-        src="assets/cats/cat-sleep-light.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
-      <span class="eyebrow">{{ 'projects.eyebrow' | t: i18n.locale() }}</span>
-      <h2 class="projects-title">{{ 'projects.title' | t: i18n.locale() }}</h2>
-      <app-wave-divider variant="narrow" />
-      <p class="projects-lead">{{ 'projects.lead' | t: i18n.locale() }}</p>
+      <div class="projects-header-main">
+        <h2 class="projects-title">{{ 'projects.title' | t: i18n.locale() }}</h2>
+        <span class="projects-header-rule" aria-hidden="true"></span>
+        <p class="projects-lead">{{ 'projects.lead' | t: i18n.locale() }}</p>
+      </div>
     </header>
 
-    <div class="projects-list">
-      @for (project of projects(); track project.id; let i = $index; let last = $last) {
-        <article class="project-row" [class.project-row-flip]="i % 2 === 1">
-          <div class="project-media">
-            @if (project.demoLink && previewMode[project.id] === 'iframe') {
-              <iframe
-                class="project-preview-iframe"
-                [src]="safeDemoUrls[project.id]"
-                [title]="'projects.previewAria' | t: i18n.locale(): { title: project.title }"
-                loading="lazy"
-                tabindex="-1"
-                (load)="onIframeLoad(project.id)"
-              ></iframe>
-              <a
-                class="project-preview-hit"
-                [href]="project.demoLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="'projects.openDemoAria' | t: i18n.locale(): { title: project.title }"
-              ></a>
-            } @else if (project.demoLink && previewMode[project.id] === 'shot') {
-              <a
-                class="project-preview-link"
-                [href]="project.demoLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="'projects.openDemoAria' | t: i18n.locale(): { title: project.title }"
+    <div
+      class="projects-carousel"
+      role="region"
+      [attr.aria-roledescription]="'projects.carouselRole' | t: i18n.locale()"
+      [attr.aria-label]="'projects.title' | t: i18n.locale()"
+      tabindex="0"
+      (keydown)="onCarouselKeydown($event)"
+    >
+      <div class="projects-stage" #stage>
+        <span class="projects-demo-sentinel" #demoSentinel aria-hidden="true"></span>
+
+        <div
+          class="projects-demo-layer"
+          [class.is-nudging]="demoNudging()"
+        >
+          <div
+            class="projects-viewport"
+            #viewport
+            (scroll)="onViewportScroll()"
+            (click.capture)="onViewportClickCapture($event)"
+          >
+            @for (project of projects(); track project.id; let i = $index) {
+              <article
+                class="project-slide"
+                [class.is-active]="i === activeIndex()"
+                [attr.aria-hidden]="i !== activeIndex()"
+                [inert]="!useMobileTrack() && i !== activeIndex()"
               >
-                <img
-                  class="project-preview-img"
-                  [src]="shotUrl(project.demoLink)"
-                  [alt]="'projects.shotAlt' | t: i18n.locale(): { title: project.title }"
-                  loading="lazy"
-                  (error)="onShotError(project.id)"
-                />
-              </a>
-            } @else {
-              <img
-                class="project-preview-img"
-                [src]="project.imageUrl"
-                [alt]="project.title"
-                loading="lazy"
-              />
+                <div class="project-slide__intro">
+                  <p class="project-kicker">
+                    {{ indexLabel(i) }} / {{ project.shortName }}
+                  </p>
+                  <h3 class="project-slide__title">{{ project.title }}</h3>
+                  <p class="project-slide__subtitle">{{ project.subtitle }}</p>
+                  <p class="project-slide__description project-slide__description--mobile">
+                    {{ project.mobileDescription }}
+                  </p>
+                </div>
+
+                <div
+                  class="project-slide__media"
+                  [class.project-slide__media--portrait]="project.id === 'anthos'"
+                >
+                  @if (project.imageUrl) {
+                    <img
+                      [src]="project.imageUrl"
+                      [alt]="'projects.shotAlt' | t: i18n.locale(): { title: project.title }"
+                      [attr.width]="project.imageWidth || null"
+                      [attr.height]="project.imageHeight || null"
+                      [loading]="i === 0 ? 'eager' : 'lazy'"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  } @else {
+                    <div class="project-pending">{{ 'projects.pending' | t: i18n.locale() }}</div>
+                  }
+                </div>
+
+                <div class="project-slide__body">
+                  <div class="project-slide__descriptions project-slide__descriptions--desktop">
+                    @for (para of project.descriptionParagraphs; track $index) {
+                      <p class="project-slide__description">{{ para }}</p>
+                    }
+                  </div>
+
+                  <ul class="project-tags">
+                    @for (tech of project.techItems; track tech.name) {
+                      <li class="project-tag">
+                        @if (tech.slug) {
+                          <span
+                            class="project-tag-icon"
+                            aria-hidden="true"
+                            [style.--tech-url]="techIconUrl(tech.slug)"
+                          ></span>
+                        }
+                        <span>{{ tech.name }}</span>
+                      </li>
+                    }
+                  </ul>
+
+                  <div class="project-actions">
+                    @if (project.demoLink) {
+                      <a
+                        [href]="project.demoLink"
+                        class="project-action project-action-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        [attr.tabindex]="i === activeIndex() ? null : -1"
+                      >
+                        {{ 'projects.demo' | t: i18n.locale() }}
+                        <app-editorial-icon name="arrow-up-right" [size]="12" />
+                      </a>
+                    }
+                    @if (project.githubLink) {
+                      <a
+                        [href]="project.githubLink"
+                        class="project-action project-action-secondary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        [attr.tabindex]="i === activeIndex() ? null : -1"
+                      >
+                        {{ 'projects.github' | t: i18n.locale() }}
+                        <app-editorial-icon name="arrow-up-right" [size]="12" />
+                      </a>
+                    }
+                    @if (project.howItWorks) {
+                      <button
+                        type="button"
+                        class="project-action project-action-secondary project-action-btn"
+                        (click)="openHowTo(project, $event)"
+                        [attr.tabindex]="i === activeIndex() ? null : -1"
+                      >
+                        {{ 'projects.how' | t: i18n.locale() }}
+                      </button>
+                    }
+                  </div>
+                </div>
+              </article>
             }
           </div>
+        </div>
 
-          <div class="project-copy">
-            <h3 class="project-name">{{ project.title }}</h3>
-            <p class="project-stack">
-              {{ project.technologies.join(' · ') }}
-            </p>
-            <p class="project-desc">{{ project.description }}</p>
-
-            <div class="project-tags">
-              @for (tech of project.technologies; track tech) {
-                <span class="project-tag">{{ tech }}</span>
-              }
-            </div>
-
-            <div class="project-links">
-              @if (project.howItWorks) {
-                <button
-                  type="button"
-                  class="project-link-primary"
-                  (click)="openHowTo(project)"
-                >
-                  {{ 'projects.how' | t: i18n.locale() }}
-                </button>
-              }
-              @if (project.demoLink) {
-                <a
-                  [href]="project.demoLink"
-                  class="project-link-secondary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ 'projects.demo' | t: i18n.locale() }}
-                </a>
-              }
-              @if (project.githubLink) {
-                <a
-                  [href]="project.githubLink"
-                  class="project-link-secondary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ 'projects.github' | t: i18n.locale() }}
-                </a>
-              }
-            </div>
+        @if (demoCueVisible()) {
+          <div class="projects-swipe-cue" aria-hidden="true">
+            <span class="projects-swipe-cue__glyph">
+              <app-editorial-icon name="arrow-right" [size]="18" />
+            </span>
           </div>
-        </article>
-
-        @if (!last) {
-          <app-wave-divider />
         }
-      }
+      </div>
+
+      <div class="projects-controls">
+        <button
+          type="button"
+          class="projects-side-btn projects-side-btn--prev"
+          (click)="prev()"
+          [attr.aria-label]="'projects.prev' | t: i18n.locale()"
+        >
+          <span class="icon-prev" aria-hidden="true">
+            <app-editorial-icon name="arrow-right" [size]="18" />
+          </span>
+        </button>
+
+        <div class="projects-nav">
+          <div class="projects-tabs" role="tablist" [attr.aria-label]="'projects.tabsAria' | t: i18n.locale()">
+            @for (project of projects(); track project.id; let i = $index) {
+              <button
+                type="button"
+                class="projects-tab"
+                role="tab"
+                [class.is-active]="i === activeIndex()"
+                [attr.aria-selected]="i === activeIndex()"
+                (click)="onTabSelect(i)"
+              >
+                {{ project.shortName }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="projects-side-btn projects-side-btn--next"
+          (click)="next()"
+          [attr.aria-label]="'projects.next' | t: i18n.locale()"
+        >
+          <app-editorial-icon name="arrow-right" [size]="18" />
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
 @if (localizedActiveHowTo(); as active) {
   @if (active.howItWorks; as how) {
-  <div
-    class="howto-overlay"
-    role="dialog"
-    aria-modal="true"
-    [attr.aria-labelledby]="'howto-title-' + active.id"
-    (click)="closeHowTo()"
-  >
-    <div class="howto-panel" (click)="$event.stopPropagation()">
-      <header class="howto-header">
-        <div class="howto-heading">
-          <p class="howto-kicker">{{ 'projects.how' | t: i18n.locale() }}</p>
-          <h3 class="howto-title" [id]="'howto-title-' + active.id">
-            {{ active.title }}
-          </h3>
-        </div>
-        <button type="button" class="howto-close" (click)="closeHowTo()">
-          {{ 'projects.close' | t: i18n.locale() }}
-        </button>
-      </header>
+    <div
+      class="howto-overlay"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="'howto-title-' + active.id"
+      (click)="closeHowTo()"
+    >
+      <div class="howto-panel" (click)="$event.stopPropagation()">
+        <header class="howto-header">
+          <div class="howto-heading">
+            <p class="howto-kicker">{{ 'projects.how' | t: i18n.locale() }}</p>
+            <h3 class="howto-title" [id]="'howto-title-' + active.id">
+              {{ active.title }}
+            </h3>
+          </div>
+          <button type="button" class="howto-close" (click)="closeHowTo()">
+            <app-editorial-icon name="close" [size]="18" />
+            <span>{{ 'projects.close' | t: i18n.locale() }}</span>
+          </button>
+        </header>
 
-      <div class="howto-body">
-      <p class="howto-summary">{{ how.summary }}</p>
+        <div class="howto-body">
+          <div class="howto-summary-block">
+            @for (para of how.summaryParagraphs; track $index) {
+              <p class="howto-summary">{{ para }}</p>
+            }
+          </div>
 
-      @if (how.layout === 'flow') {
-        <div class="flow-frame" aria-hidden="true">
-          <div class="flow-steps">
-            @for (step of how.steps; track step.label; let last = $last) {
-              <div
-                class="flow-step"
-                [class.flow-step-accent]="step.tone === 'accent'"
-                [class.flow-step-light]="step.tone !== 'accent'"
-              >
-                <span class="flow-step-label">{{ step.label }}</span>
-                @if (step.detail) {
-                  <span class="flow-step-detail">{{ step.detail }}</span>
-                }
-              </div>
-              @if (!last) {
-                <span class="flow-arrow">→</span>
+          @if (how.layout === 'flow') {
+            <ol class="flow-steps">
+              @for (step of how.steps; track step.label) {
+                <li class="flow-step">
+                  <span class="flow-step-label">{{ step.label }}</span>
+                  @if (step.detail) {
+                    <span class="flow-step-detail">{{ step.detail }}</span>
+                  }
+                </li>
               }
+            </ol>
+          } @else {
+            <ul class="points-grid">
+              @for (step of how.steps; track step.label) {
+                <li class="point-card">
+                  <span class="point-label">{{ step.label }}</span>
+                  @if (step.detail) {
+                    <span class="point-detail">{{ step.detail }}</span>
+                  }
+                </li>
+              }
+            </ul>
+          }
+
+          @if (how.footnote) {
+            <p class="howto-footnote">{{ how.footnote }}</p>
+          }
+
+          <div class="howto-actions">
+            @if (active.githubLink) {
+              <a
+                [href]="active.githubLink"
+                class="project-action project-action-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ 'projects.viewGithub' | t: i18n.locale() }}
+              </a>
+            }
+            @if (active.demoLink) {
+              <a
+                [href]="active.demoLink"
+                class="project-action project-action-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ 'projects.openDemo' | t: i18n.locale() }}
+              </a>
             }
           </div>
         </div>
-      } @else {
-        <ul class="points-grid">
-          @for (step of how.steps; track step.label) {
-            <li
-              class="point-card"
-              [class.point-card-accent]="step.tone === 'accent'"
-              [class.point-card-light]="step.tone !== 'accent'"
-            >
-              <span class="point-label">{{ step.label }}</span>
-              @if (step.detail) {
-                <span class="point-detail">{{ step.detail }}</span>
-              }
-            </li>
-          }
-        </ul>
-      }
-
-      @if (how.footnote) {
-        <p class="howto-footnote">{{ how.footnote }}</p>
-      }
-
-      <div class="howto-actions">
-        @if (active.githubLink) {
-          <a
-            [href]="active.githubLink"
-            class="project-link-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ 'projects.viewGithub' | t: i18n.locale() }}
-          </a>
-        }
-        @if (active.demoLink) {
-          <a
-            [href]="active.demoLink"
-            class="project-link-secondary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ 'projects.openDemo' | t: i18n.locale() }}
-          </a>
-        }
-      </div>
       </div>
     </div>
-  </div>
   }
 }

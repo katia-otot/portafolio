@@ -1,136 +1,93 @@
-<section class="contact-root">
+<section class="contact-section" aria-labelledby="contact-title">
   <div class="contact-inner">
-    <header class="contact-header">
-      <img
-        class="contact-cat theme-cat-dark"
-        src="assets/cats/cat-peek.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
-      <img
-        class="contact-cat theme-cat-light"
-        src="assets/cats/cat-peek-light.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
-      <span class="eyebrow">{{ 'contact.eyebrow' | t: i18n.locale() }}</span>
-      <h2 class="contact-title">{{ 'contact.title' | t: i18n.locale() }}</h2>
-      <app-wave-divider variant="narrow" />
-    </header>
+    <div class="contact-layout">
+      <div class="contact-copy">
+        <span class="contact-eyebrow">{{ 'contact.eyebrow' | t: i18n.locale() }}</span>
+        <h2 class="contact-title" id="contact-title">
+          {{ 'contact.title' | t: i18n.locale() }}
+        </h2>
+        <p class="contact-intro">{{ 'contact.intro' | t: i18n.locale() }}</p>
 
-    <div class="contact-grid">
-      <div class="contact-aside">
-        <h3 class="contact-headline">
-          {{ 'contact.headline1' | t: i18n.locale() }}<br />
-          {{ 'contact.headline2' | t: i18n.locale() }}
-        </h3>
+        <div class="contact-email-block">
+          <span class="contact-email-label">{{ 'contact.emailLabel' | t: i18n.locale() }}</span>
+          <div class="contact-email-row">
+            <a class="contact-email" [href]="mailtoHref"
+              >katiagadea19<wbr />&#64;gmail.com</a
+            >
+            <button
+              type="button"
+              class="contact-copy-btn"
+              (click)="copyEmail()"
+              [attr.aria-label]="'contact.copyEmail' | t: i18n.locale()"
+            >
+              @if (copied) {
+                <app-editorial-icon name="check" [size]="16" />
+                <span aria-live="polite">{{ 'contact.copied' | t: i18n.locale() }}</span>
+              } @else {
+                <app-editorial-icon name="copy" [size]="16" />
+              }
+            </button>
+          </div>
+        </div>
 
-        <dl class="contact-details">
-          <div class="detail">
-            <dt>{{ 'contact.email' | t: i18n.locale() }}</dt>
-            <dd>
-              <a href="mailto:katiagadea19@gmail.com">katiagadea19&#64;gmail.com</a>
-            </dd>
-          </div>
-          <div class="detail">
-            <dt>{{ 'contact.phone' | t: i18n.locale() }}</dt>
-            <dd>
-              <a href="tel:+542262360846">02262360846</a>
-            </dd>
-          </div>
-          <div class="detail">
-            <dt>{{ 'contact.linkedin' | t: i18n.locale() }}</dt>
-            <dd>
-              <a
-                href="https://www.linkedin.com/in/katia-gadea-5a7ab2292/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Katia Gadea</a
-              >
-            </dd>
-          </div>
-          <div class="detail">
-            <dt>{{ 'contact.availability' | t: i18n.locale() }}</dt>
-            <dd>{{ 'contact.availabilityValue' | t: i18n.locale() }}</dd>
-          </div>
-        </dl>
+        <a class="contact-cta" [href]="mailtoHref">
+          {{ 'contact.cta' | t: i18n.locale() }}
+          <app-editorial-icon name="mail" [size]="16" />
+        </a>
+
+        <nav class="contact-socials" [attr.aria-label]="'contact.eyebrow' | t: i18n.locale()">
+          <a
+            class="contact-social"
+            href="https://www.linkedin.com/in/katia-gadea-5a7ab2292/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <app-editorial-icon name="linkedin" [size]="16" />
+            <span>{{ 'contact.linkedin' | t: i18n.locale() }}</span>
+          </a>
+          <a
+            class="contact-social"
+            href="https://github.com/katia-otot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <app-editorial-icon name="github" [size]="16" />
+            <span>{{ 'contact.github' | t: i18n.locale() }}</span>
+          </a>
+          <a class="contact-social" href="tel:+542262360846">
+            <app-editorial-icon name="phone" [size]="16" />
+            <span>{{ 'contact.phone' | t: i18n.locale() }}</span>
+          </a>
+        </nav>
       </div>
 
-      <form class="contact-form" (submit)="submitForm($event)">
-        <p class="hp-field" aria-hidden="true">
-          <label>
-            {{ 'contact.honeypot' | t: i18n.locale() }}
-            <input type="text" name="bot-field" tabindex="-1" autocomplete="off" [(ngModel)]="botField" />
-          </label>
-        </p>
-
-        <div class="form-row">
-          <label class="field">
-            <span class="field-label">{{ 'contact.name' | t: i18n.locale() }}</span>
-            <input
-              type="text"
-              name="name"
-              [(ngModel)]="name"
-              autocomplete="name"
-              required
-              [disabled]="submitState === 'sending'"
-            />
-          </label>
-          <label class="field">
-            <span class="field-label">{{ 'contact.email' | t: i18n.locale() }}</span>
-            <input
-              type="email"
-              name="email"
-              [(ngModel)]="email"
-              autocomplete="email"
-              required
-              [disabled]="submitState === 'sending'"
-            />
-          </label>
-        </div>
-
-        <label class="field field-full">
-          <span class="field-label">{{ 'contact.message' | t: i18n.locale() }}</span>
-          <textarea
-            name="message"
-            rows="3"
-            [(ngModel)]="message"
-            required
-            [disabled]="submitState === 'sending'"
-          ></textarea>
-        </label>
-
-        @if (submitState === 'success') {
-          <p class="form-status form-status-ok" role="status">
-            {{ 'contact.success' | t: i18n.locale() }}
-          </p>
-        }
-        @if (submitState === 'error' && activationPending) {
-          <p class="form-status form-status-error" role="alert">
-            {{ 'contact.activation' | t: i18n.locale() }}
-          </p>
-        }
-        @if (submitState === 'error' && !activationPending) {
-          <p class="form-status form-status-error" role="alert">
-            {{ 'contact.error' | t: i18n.locale() }}
-          </p>
-        }
-
-        <div class="form-footer">
-          <p class="form-note">{{ 'contact.note' | t: i18n.locale() }}</p>
-          <button type="submit" class="send-btn" [disabled]="submitState === 'sending'">
-            {{
-              submitState === 'sending'
-                ? ('contact.sending' | t: i18n.locale())
-                : ('contact.send' | t: i18n.locale())
-            }}
-          </button>
-        </div>
-      </form>
+      <div class="theme-art theme-art--branch contact-art" aria-hidden="true">
+        <img
+          class="theme-art__light"
+          src="assets/editorial/illustrations/rama-footer.png"
+          alt=""
+          width="1774"
+          height="887"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="theme-art__dark"
+          src="assets/editorial/illustrations/rama-footer-dark.png"
+          alt=""
+          width="1774"
+          height="887"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
   </div>
 </section>
+
+<footer class="site-footer">
+  <div class="editorial-shell site-footer-inner">
+    <p>{{ 'contact.footerLine' | t: i18n.locale() }}</p>
+    <p>2026</p>
+  </div>
+</footer>

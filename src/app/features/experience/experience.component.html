@@ -1,35 +1,19 @@
 <div class="experience-root">
   <div class="experience-inner">
     <header class="experience-header">
-      <img
-        class="experience-cat theme-cat-dark"
-        src="assets/cats/cat-stretch.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
-      <img
-        class="experience-cat theme-cat-light"
-        src="assets/cats/cat-stretch-light.png"
-        alt=""
-        aria-hidden="true"
-        width="1024"
-        height="682"
-      />
       <span class="eyebrow">{{ 'experience.eyebrow' | t: i18n.locale() }}</span>
       <h2 class="experience-title">{{ 'experience.title' | t: i18n.locale() }}</h2>
-      <app-wave-divider variant="narrow" />
     </header>
 
-    <div class="timeline">
+    <div class="experience-list">
       @for (job of experiences(); track job.company + job.period) {
-        <article class="timeline-entry">
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-body">
+        <article class="experience-entry">
+          <div class="experience-aside">
+            <p class="company-name">{{ job.company }}</p>
             <p class="period">{{ job.period }}</p>
             <h3 class="role-title">{{ job.role }}</h3>
-            <p class="company-name">{{ job.company }}</p>
+          </div>
+          <div class="experience-body">
             <p class="role-summary">{{ job.summary }}</p>
             <ul class="highlights">
               @for (item of job.bullets; track item.text) {

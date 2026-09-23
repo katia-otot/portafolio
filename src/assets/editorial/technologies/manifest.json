@@ -1,0 +1,219 @@
+[
+  {
+    "slug": "typescript",
+    "name": "TypeScript",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/typescript.svg",
+    "sha256_source": "7f023e8d1e767370306ec9437d2de5d5af97491d6208dd7799a3808a7c10a36a"
+  },
+  {
+    "slug": "javascript",
+    "name": "JavaScript",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/javascript.svg",
+    "sha256_source": "c9be35a7a861ebe80ae4ee706d05004b99ee59fc63db69da6dcc10776718434b"
+  },
+  {
+    "slug": "react",
+    "name": "React",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg",
+    "sha256_source": "ab9136a1a4a8be72ac6743e1bdd1912d878bd68d57787ea7a6c6838e3b23c01c"
+  },
+  {
+    "slug": "nextdotjs",
+    "name": "Next.js",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nextdotjs.svg",
+    "sha256_source": "593e14da3ddb65be4c8fa6a178f2f48a01a8bd39ea384f679cd7182b520da502"
+  },
+  {
+    "slug": "angular",
+    "name": "Angular",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/angular.svg",
+    "sha256_source": "385c7d047cc4d48d8359003b57ce4df7d1271b6d9e7840c128628ac582c90456"
+  },
+  {
+    "slug": "html5",
+    "name": "HTML5",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/html5.svg",
+    "sha256_source": "dfd65fdd7e4f997c6b163e48793de5ad18c4c99e191807a61752ea702f123d1d"
+  },
+  {
+    "slug": "css",
+    "name": "CSS",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/css.svg",
+    "sha256_source": "9a97b95e3207aa4a6545dbb862e22450a01f37201c00e6b7d9c2958b59ca9ff9"
+  },
+  {
+    "slug": "tailwindcss",
+    "name": "Tailwind CSS",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tailwindcss.svg",
+    "sha256_source": "5d4ede3c95da824f543c6eefbe7c78b45ecce6796f6633de196dd712a7841140"
+  },
+  {
+    "slug": "expo",
+    "name": "Expo",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/expo.svg",
+    "sha256_source": "fe31b54a038878735a20ff497c6b250221707047785a324c4f7ef83228f40c6a"
+  },
+  {
+    "slug": "react-native",
+    "name": "React Native",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/react.svg",
+    "sha256_source": "ab9136a1a4a8be72ac6743e1bdd1912d878bd68d57787ea7a6c6838e3b23c01c"
+  },
+  {
+    "slug": "nodedotjs",
+    "name": "Node.js",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nodedotjs.svg",
+    "sha256_source": "021851b758cde7d3e04819c3ac02047d0ff281c712e8387afa0c76a6dac6db6c"
+  },
+  {
+    "slug": "express",
+    "name": "Express",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/express.svg",
+    "sha256_source": "7f2cc8797a53da60e11e0d06e75e57d4d5f15965e1ad57e42f9d9711c40dbed5"
+  },
+  {
+    "slug": "spring",
+    "name": "Spring Boot",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/spring.svg",
+    "sha256_source": "44f55b1c7e9db0fab5bbb9b91247844986a39995b6eadf0aa3ca6edf47c1097e"
+  },
+  {
+    "slug": "php",
+    "name": "PHP",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/php.svg",
+    "sha256_source": "cd1beaa0dde7e765b5d2cbae786c1f6db967f72073eb7b9f9bbc63da55b9d0f6"
+  },
+  {
+    "slug": "openjdk",
+    "name": "OpenJDK / Java",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/openjdk.svg",
+    "sha256_source": "31c94bd8f864b018d9733c251df186f36e9a0036e43f78d0656895108d438bb3"
+  },
+  {
+    "slug": "graphql",
+    "name": "GraphQL",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/graphql.svg",
+    "sha256_source": "fc8ca4d195a8a79470540edf33677e24f6113b8b8d9b442acc5f62b57a2951cb"
+  },
+  {
+    "slug": "prisma",
+    "name": "Prisma",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/prisma.svg",
+    "sha256_source": "5715775538af3789425a7d0a9231473429f065ec9f1bf8bec589e906af65d7be"
+  },
+  {
+    "slug": "sqlite",
+    "name": "SQLite",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/sqlite.svg",
+    "sha256_source": "71d4153bc9661dfe6b92dad70f737ec2b6c7c839311e502b4ca66fe664fe12b6"
+  },
+  {
+    "slug": "postgresql",
+    "name": "PostgreSQL",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/postgresql.svg",
+    "sha256_source": "c8ccadbd88c9312c2ad3734c4861b31d3485ce179ee91d64793143f83cfa745c"
+  },
+  {
+    "slug": "firebase",
+    "name": "Firebase",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/firebase.svg",
+    "sha256_source": "3f46d84a41479d7789cc36b82c2b6852e6bbbfd30ebee5b7a3aef7d49758295a"
+  },
+  {
+    "slug": "googlecloud",
+    "name": "Google Cloud",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googlecloud.svg",
+    "sha256_source": "534a0359c2784e152f5c88ce64a56976036d7336c7831775c995977fd3432713"
+  },
+  {
+    "slug": "docker",
+    "name": "Docker",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/docker.svg",
+    "sha256_source": "65571291c261ef869c31540a38f3ca0f0ee3bb73f179c172211c8860f19a6359"
+  },
+  {
+    "slug": "git",
+    "name": "Git",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/git.svg",
+    "sha256_source": "95724d436215d483de82288610c3c144854138f49945424697fcdf8be66e17d6"
+  },
+  {
+    "slug": "github",
+    "name": "GitHub",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg",
+    "sha256_source": "3bf8cceead820aec50d4ee825a3fd02c5a1cd6665cc9cf4cbf3d9c8861a204bb"
+  },
+  {
+    "slug": "nginx",
+    "name": "Nginx",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nginx.svg",
+    "sha256_source": "236d53b2b746706df75e2a01668cb84e6f3fc7c8923a9ce824f8534db007a438"
+  },
+  {
+    "slug": "zod",
+    "name": "Zod",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/zod.svg",
+    "sha256_source": "e8808a8b34a76aa064ca1b5b378d4f73cbc7690303f1e4a1c864d2ad08b712b3"
+  },
+  {
+    "slug": "openrouter",
+    "name": "OpenRouter",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/openrouter.svg",
+    "sha256_source": "9148696e3a06d23e8fe2b743ebd3ee1173354dbd7b58d33d1ca6a40ee0018d53"
+  },
+  {
+    "slug": "vite",
+    "name": "Vite",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/vite.svg",
+    "sha256_source": "642bb261d6476ddf326b8ed7757543b3443a93a77fef1e434021fc201defa21c"
+  },
+  {
+    "slug": "netlify",
+    "name": "Netlify",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/netlify.svg",
+    "sha256_source": "adbe4ef3579ca1ef95e1903ff8599a5a55e5c6531fab3f7edaf2b4adee0f4ef9"
+  },
+  {
+    "slug": "bun",
+    "name": "Bun",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/bun.svg",
+    "sha256_source": "f356fc1ec5659e73e9b1e881ef2785a4fc4e0e3d82b446e6484f55303546dc6d"
+  },
+  {
+    "slug": "hono",
+    "name": "Hono",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/hono.svg",
+    "sha256_source": "24f85cd5e3acbba4481d46499535ad872cb515be8e21545dd0ac917b517beed8"
+  },
+  {
+    "slug": "mui",
+    "name": "Material UI",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/mui.svg",
+    "sha256_source": "af7721bc4b663e02001d72dbd018b083fbbf6084b37f62acb03927a93b61a5e0"
+  },
+  {
+    "slug": "apollographql",
+    "name": "Apollo GraphQL",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/apollographql.svg",
+    "sha256_source": "dbe14dea0e3f935d44a56deb085cf4264d2a2d02563cd24947374ffd2478dbae"
+  },
+  {
+    "slug": "sequelize",
+    "name": "Sequelize",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/sequelize.svg",
+    "sha256_source": "50d047ff816b8e0a97ce45c9939e9b021fac9f56c88ad0f6153efc7245d93ce7"
+  },
+  {
+    "slug": "hibernate",
+    "name": "Hibernate",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/hibernate.svg",
+    "sha256_source": "95dfbe5d7cac1bd313a2a2f3a4437f5494b13c355570d1a9e0f16200f96f01b0"
+  },
+  {
+    "slug": "authjs",
+    "name": "Auth.js",
+    "source": "https://authjs.dev/img/logo-sm.png",
+    "sha256_source": "9040f31775e98f4c8a62010e116631142ae988691a4c0ee82ba7610ab05b6439",
+    "note": "Monochrome silhouette derived from official Auth.js mark for CSS mask."
+  }
+]

@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { WaveDividerComponent } from '../../shared/components/wave-divider/wave-divider.component';
 import { I18nService } from '../../shared/i18n/i18n.service';
 import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
@@ -17,7 +16,7 @@ export interface ExperienceItem {
 
 @Component({
   selector: 'app-experience',
-  imports: [WaveDividerComponent, TranslatePipe],
+  imports: [TranslatePipe],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })

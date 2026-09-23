@@ -1,11 +1,10 @@
 import {
   Component,
   ElementRef,
-  AfterViewInit,
+  HostListener,
   OnDestroy,
   OnInit,
   ViewChild,
-  HostListener,
   inject,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -18,21 +17,7 @@ import { ThemeService } from '../../shared/services/theme.service';
 import { I18nService } from '../../shared/i18n/i18n.service';
 import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 import { Locale } from '../../shared/i18n/translations';
-
-interface AmbientBlob {
-  el: HTMLElement;
-  homeX: number;
-  homeY: number;
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  radius: number;
-  phase: number;
-  driftAmpX: number;
-  driftAmpY: number;
-  driftSpeed: number;
-}
+import { EditorialIconComponent } from '../../shared/components/editorial-icon/editorial-icon.component';
 
 @Component({
   selector: 'app-home',
@@ -44,86 +29,68 @@ interface AmbientBlob {
     ProjectsComponent,
     ContactComponent,
     TranslatePipe,
+    EditorialIconComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('ambientBg', { static: true }) ambientBg!: ElementRef<HTMLElement>;
-
+export class HomeComponent implements OnInit, OnDestroy {
   menuOpen = false;
-
-  private sections: HTMLElement[] = [];
-  private isMobile = false;
-  private blobs: AmbientBlob[] = [];
-  private rafId = 0;
-  private mouseX = -9999;
-  private mouseY = -9999;
-  private reducedMotion = false;
-  private fleeEnabled = false;
-  private started = 0;
-
-  private readonly onPointerMove = (event: PointerEvent): void => {
-    if (!this.fleeEnabled) {
-      return;
-    }
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
-  };
-
-  private readonly onPointerLeave = (): void => {
-    this.mouseX = -9999;
-    this.mouseY = -9999;
-  };
-
-  private readonly onResize = (): void => {
-    this.syncBlobHomes();
-    this.updateFleeMode();
-    if (typeof window !== 'undefined' && window.innerWidth >= 900) {
-      this.closeMenu();
-    }
-  };
 
   readonly themeService = inject(ThemeService);
   readonly i18n = inject(I18nService);
 
+  @ViewChild('heroTiltRoot') private heroTiltRoot?: ElementRef<HTMLElement>;
+  @ViewChild('heroTiltInner') private heroTiltInner?: ElementRef<HTMLElement>;
+
+  private static readonly TILT_MAX_PX = 6;
+  private static readonly TILT_MAX_DEG = 2;
+  private static readonly TILT_EASE = 0.12;
+  private static readonly TILT_REST_EPS = 0.02;
+
+  private hoverMq?: MediaQueryList;
+  private reduceMq?: MediaQueryList;
+  private tiltActive = false;
+  private tiltRafId: number | null = null;
+  private tiltTargetX = 0;
+  private tiltTargetY = 0;
+  private tiltTargetRot = 0;
+  private tiltCurrentX = 0;
+  private tiltCurrentY = 0;
+  private tiltCurrentRot = 0;
+
+  private readonly onResize = (): void => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      this.closeMenu();
+    }
+  };
+
+  private readonly onMotionPreferenceChange = (): void => {
+    if (!this.canUseHeroTilt()) {
+      this.resetHeroTilt(true);
+    }
+  };
+
   ngOnInit(): void {
     this.themeService.init();
     this.i18n.init();
-  }
-
-  ngAfterViewInit(): void {
-    this.sections = Array.from(document.querySelectorAll('.section'));
-    this.reducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (this.reducedMotion) {
-      return;
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.onResize, { passive: true });
+      this.hoverMq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      this.reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.hoverMq.addEventListener('change', this.onMotionPreferenceChange);
+      this.reduceMq.addEventListener('change', this.onMotionPreferenceChange);
     }
-
-    this.initBlobs();
-    this.updateFleeMode();
-    this.started = performance.now();
-    window.addEventListener('pointermove', this.onPointerMove, { passive: true });
-    document.addEventListener('pointermove', this.onPointerMove, { passive: true });
-    window.addEventListener('pointerleave', this.onPointerLeave);
-    document.documentElement.addEventListener('mouseleave', this.onPointerLeave);
-    window.addEventListener('resize', this.onResize, { passive: true });
-    requestAnimationFrame(() => {
-      this.syncBlobHomes();
-      this.rafId = requestAnimationFrame(this.tick);
-    });
   }
 
   ngOnDestroy(): void {
-    cancelAnimationFrame(this.rafId);
-    window.removeEventListener('pointermove', this.onPointerMove);
-    document.removeEventListener('pointermove', this.onPointerMove);
-    window.removeEventListener('pointerleave', this.onPointerLeave);
-    document.documentElement.removeEventListener('mouseleave', this.onPointerLeave);
-    window.removeEventListener('resize', this.onResize);
-    this.unlockScroll();
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize);
+      this.hoverMq?.removeEventListener('change', this.onMotionPreferenceChange);
+      this.reduceMq?.removeEventListener('change', this.onMotionPreferenceChange);
+    }
+    this.resetHeroTilt(true);
+    this.unlockBodyScroll();
   }
 
   @HostListener('document:keydown.escape')
@@ -168,12 +135,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeMenu(): void {
     this.menuOpen = false;
-    this.unlockScroll();
+    this.unlockBodyScroll();
   }
 
   goHome(): void {
     this.closeMenu();
-    this.scrollToId('home');
+    this.scrollToId('inicio');
   }
 
   navigateTo(fragment: string): void {
@@ -181,136 +148,150 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     requestAnimationFrame(() => this.scrollToId(fragment));
   }
 
-  scrollToContact(): void {
-    this.navigateTo('contact');
+  scrollToProjects(): void {
+    this.navigateTo('proyectos');
   }
 
   scrollToId(fragment: string): void {
-    this.isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const el = document.getElementById(fragment);
-    if (el) {
-      el.scrollIntoView({
-        behavior: this.isMobile ? 'auto' : 'smooth',
-        block: 'start',
-      });
-    }
-  }
-
-  private unlockScroll(): void {
-    document.body.style.overflow = '';
-  }
-
-  private updateFleeMode(): void {
-    if (typeof window === 'undefined') {
-      this.fleeEnabled = false;
+    if (!el) {
       return;
     }
-    this.fleeEnabled = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!this.fleeEnabled) {
-      this.mouseX = -9999;
-      this.mouseY = -9999;
-      for (const blob of this.blobs) {
-        blob.vx = 0;
-        blob.vy = 0;
-      }
-    }
-  }
-
-  private initBlobs(): void {
-    const root = this.ambientBg?.nativeElement;
-    if (!root) {
-      return;
-    }
-
-    const nodes = Array.from(root.querySelectorAll<HTMLElement>('.glow'));
-    this.blobs = nodes.map((el, index) => {
-      const rect = el.getBoundingClientRect();
-      const homeX = rect.left + rect.width / 2;
-      const homeY = rect.top + rect.height / 2;
-      return {
-        el,
-        homeX,
-        homeY,
-        x: homeX,
-        y: homeY,
-        vx: 0,
-        vy: 0,
-        radius: Math.max(rect.width, rect.height) * 0.7,
-        phase: index * 1.7,
-        driftAmpX: 28 + index * 10,
-        driftAmpY: 22 + index * 8,
-        driftSpeed: 0.0004 + index * 0.0001,
-      };
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({
+      behavior: prefersReduced ? 'auto' : 'smooth',
+      block: 'start',
     });
   }
 
-  private syncBlobHomes(): void {
-    for (const blob of this.blobs) {
-      blob.el.style.transform = 'translate3d(0,0,0)';
-    }
-    void this.ambientBg.nativeElement.offsetWidth;
-    for (const blob of this.blobs) {
-      const rect = blob.el.getBoundingClientRect();
-      blob.homeX = rect.left + rect.width / 2;
-      blob.homeY = rect.top + rect.height / 2;
-      blob.radius = Math.max(rect.width, rect.height) * 0.7;
-      blob.x = blob.homeX;
-      blob.y = blob.homeY;
-      blob.vx = 0;
-      blob.vy = 0;
-    }
+  private unlockBodyScroll(): void {
+    document.body.style.overflow = '';
   }
 
-  private readonly tick = (now: number): void => {
-    const t = now - this.started;
-    const influencePad = 140;
-    const fleeStrength = 22;
-    const spring = this.fleeEnabled ? 0.028 : 0.02;
-    const friction = this.fleeEnabled ? 0.78 : 0.9;
-    const maxSpeed = this.fleeEnabled ? 42 : 8;
-
-    for (const blob of this.blobs) {
-      const idleX = Math.sin(t * blob.driftSpeed + blob.phase) * blob.driftAmpX;
-      const idleY = Math.cos(t * blob.driftSpeed * 0.85 + blob.phase) * blob.driftAmpY;
-      const targetX = blob.homeX + idleX;
-      const targetY = blob.homeY + idleY;
-
-      if (this.fleeEnabled) {
-        const dx = blob.x - this.mouseX;
-        const dy = blob.y - this.mouseY;
-        const dist = Math.hypot(dx, dy) || 1;
-        const influence = blob.radius + influencePad;
-
-        if (dist < influence) {
-          const proximity = 1 - dist / influence;
-          const force = proximity * proximity * fleeStrength;
-          blob.vx += (dx / dist) * force;
-          blob.vy += (dy / dist) * force;
-        }
-      }
-
-      blob.vx += (targetX - blob.x) * spring;
-      blob.vy += (targetY - blob.y) * spring;
-      blob.vx *= friction;
-      blob.vy *= friction;
-
-      const speed = Math.hypot(blob.vx, blob.vy);
-      if (speed > maxSpeed) {
-        blob.vx = (blob.vx / speed) * maxSpeed;
-        blob.vy = (blob.vy / speed) * maxSpeed;
-      }
-
-      blob.x += blob.vx;
-      blob.y += blob.vy;
-
-      const ox = blob.x - blob.homeX;
-      const oy = blob.y - blob.homeY;
-      const squash = this.fleeEnabled
-        ? Math.min(1.18, 1 + Math.hypot(blob.vx, blob.vy) * 0.008)
-        : 1;
-      blob.el.style.transform = `translate3d(${ox.toFixed(1)}px, ${oy.toFixed(1)}px, 0) scale(${squash.toFixed(3)})`;
+  onHeroTiltEnter(event: PointerEvent): void {
+    if (!this.canUseHeroTilt() || !this.isFinePointer(event)) {
+      return;
     }
+    this.tiltActive = true;
+    this.updateHeroTiltTarget(event);
+    this.startHeroTiltLoop();
+  }
 
-    this.rafId = requestAnimationFrame(this.tick);
-  };
+  onHeroTiltMove(event: PointerEvent): void {
+    if (!this.tiltActive || !this.canUseHeroTilt() || !this.isFinePointer(event)) {
+      return;
+    }
+    this.updateHeroTiltTarget(event);
+    this.startHeroTiltLoop();
+  }
+
+  onHeroTiltLeave(): void {
+    if (!this.tiltActive && this.tiltRafId === null) {
+      return;
+    }
+    this.tiltActive = false;
+    this.tiltTargetX = 0;
+    this.tiltTargetY = 0;
+    this.tiltTargetRot = 0;
+    this.startHeroTiltLoop();
+  }
+
+  private canUseHeroTilt(): boolean {
+    return !!this.hoverMq?.matches && !this.reduceMq?.matches;
+  }
+
+  private isFinePointer(event: PointerEvent): boolean {
+    return event.pointerType === 'mouse' || event.pointerType === 'pen';
+  }
+
+  private updateHeroTiltTarget(event: PointerEvent): void {
+    const root = this.heroTiltRoot?.nativeElement;
+    if (!root) {
+      return;
+    }
+    const rect = root.getBoundingClientRect();
+    if (rect.width < 1 || rect.height < 1) {
+      return;
+    }
+    const nx = Math.max(
+      -1,
+      Math.min(1, (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)),
+    );
+    const ny = Math.max(
+      -1,
+      Math.min(1, (event.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)),
+    );
+    this.tiltTargetX = nx * HomeComponent.TILT_MAX_PX;
+    this.tiltTargetY = ny * HomeComponent.TILT_MAX_PX;
+    this.tiltTargetRot = nx * HomeComponent.TILT_MAX_DEG;
+  }
+
+  private startHeroTiltLoop(): void {
+    if (this.tiltRafId !== null || typeof window === 'undefined') {
+      return;
+    }
+    const tick = (): void => {
+      const ease = HomeComponent.TILT_EASE;
+      this.tiltCurrentX += (this.tiltTargetX - this.tiltCurrentX) * ease;
+      this.tiltCurrentY += (this.tiltTargetY - this.tiltCurrentY) * ease;
+      this.tiltCurrentRot += (this.tiltTargetRot - this.tiltCurrentRot) * ease;
+      this.applyHeroTiltTransform();
+
+      const settled =
+        !this.tiltActive &&
+        Math.abs(this.tiltCurrentX) < HomeComponent.TILT_REST_EPS &&
+        Math.abs(this.tiltCurrentY) < HomeComponent.TILT_REST_EPS &&
+        Math.abs(this.tiltCurrentRot) < HomeComponent.TILT_REST_EPS &&
+        Math.abs(this.tiltTargetX) < HomeComponent.TILT_REST_EPS &&
+        Math.abs(this.tiltTargetY) < HomeComponent.TILT_REST_EPS &&
+        Math.abs(this.tiltTargetRot) < HomeComponent.TILT_REST_EPS;
+
+      if (settled) {
+        this.tiltRafId = null;
+        this.tiltCurrentX = 0;
+        this.tiltCurrentY = 0;
+        this.tiltCurrentRot = 0;
+        this.applyHeroTiltTransform(true);
+        return;
+      }
+
+      this.tiltRafId = window.requestAnimationFrame(tick);
+    };
+    this.tiltRafId = window.requestAnimationFrame(tick);
+  }
+
+  private applyHeroTiltTransform(clear = false): void {
+    const inner = this.heroTiltInner?.nativeElement;
+    if (!inner) {
+      return;
+    }
+    if (clear) {
+      inner.style.transform = '';
+      return;
+    }
+    inner.style.transform =
+      `translate3d(${this.tiltCurrentX.toFixed(2)}px, ${this.tiltCurrentY.toFixed(2)}px, 0) ` +
+      `rotate(${this.tiltCurrentRot.toFixed(3)}deg)`;
+  }
+
+  private resetHeroTilt(immediate: boolean): void {
+    this.tiltActive = false;
+    this.tiltTargetX = 0;
+    this.tiltTargetY = 0;
+    this.tiltTargetRot = 0;
+    if (immediate) {
+      if (this.tiltRafId !== null && typeof window !== 'undefined') {
+        window.cancelAnimationFrame(this.tiltRafId);
+        this.tiltRafId = null;
+      }
+      this.tiltCurrentX = 0;
+      this.tiltCurrentY = 0;
+      this.tiltCurrentRot = 0;
+      this.applyHeroTiltTransform(true);
+      return;
+    }
+    this.startHeroTiltLoop();
+  }
 }
