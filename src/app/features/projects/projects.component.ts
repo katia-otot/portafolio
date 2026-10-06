@@ -129,9 +129,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
     },
     {
       id: 'mapa',
-      imageUrl: 'assets/mapa.png',
+      imageUrl: 'assets/mapa.jpg',
       imageWidth: 1024,
-      imageHeight: 757,
+      imageHeight: 542,
       technologies: [
         { name: 'JavaScript', slug: 'javascript' },
         { name: 'CSS', slug: 'css' },
