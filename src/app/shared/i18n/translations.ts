@@ -140,19 +140,19 @@ export const TRANSLATIONS: Record<Locale, TranslationDict> = {
     'projects.mapa.title': 'Mapa local por la memoria',
     'projects.mapa.subtitle': 'Explorar la memoria de Necochea y Quequén.',
     'projects.mapa.desc':
-      'Un mapa interactivo para explorar sitios de memoria de Necochea y Quequén. Permite elegir un punto de partida, recorrer capas temáticas y consultar fichas con información de cada lugar.',
+      'Un mapa interactivo para explorar sitios de memoria de Necochea y Quequén. Permite elegir un punto de partida, recorrer capas temáticas, seguir recorridos guiados parada por parada y consultar fichas con información de cada lugar.\n\nEl mapa está hecho con MapLibre GL JS sobre mapas base abiertos de OpenFreeMap / OpenStreetMap, y está pensado para usarse cómodo en el celular.',
     'projects.mapa.descMobile':
-      'Explora sitios de memoria de Necochea y Quequén mediante un mapa interactivo con capas temáticas, selección del punto de partida y fichas de cada lugar.',
+      'Explora sitios de memoria de Necochea y Quequén con capas temáticas, recorridos guiados parada por parada y fichas de cada lugar, sobre un mapa propio hecho con MapLibre GL JS y OpenStreetMap.',
     'projects.mapa.how.summary':
-      'Aplicación interactiva para recorrer sitios de memoria en Quequén y Necochea. Elegís de dónde partís, abrís capas temáticas sobre el mapa y consultás la información de cada lugar (qué es, por qué importa en la memoria local).',
+      'Aplicación interactiva para recorrer sitios de memoria en Quequén y Necochea. Elegís de dónde partís, abrís capas temáticas sobre el mapa y seguís recorridos guiados parada por parada, con la información de cada lugar (qué es, por qué importa en la memoria local).\n\nLos datos se dibujan con MapLibre GL JS sobre mapas base abiertos. Un script en Python genera los datos de los 15 mapas en JSON y optimiza las fotos en WebP para que la página cargue más rápido.',
     'projects.mapa.how.footnote':
-      'Proyecto colaborativo PSE UNICEN Quequén: el mapa se navega, no es una imagen fija; cada punto suma contexto del sitio de memoria.',
+      'Proyecto colaborativo de las Prácticas Socioeducativas (PSE) de la UNICEN Quequén. Publicado en Netlify.',
     'projects.mapa.s1': 'Elegir origen',
     'projects.mapa.s1d': 'Quequén · Terminal · Necochea',
     'projects.mapa.s2': 'Capas de memoria',
     'projects.mapa.s2d': 'Murales, escuelas, abuelas, CCD…',
-    'projects.mapa.s3': 'Mapa interactivo',
-    'projects.mapa.s3d': 'Zoom, recorrido y puntos',
+    'projects.mapa.s3': 'Recorrido guiado',
+    'projects.mapa.s3d': 'Parada por parada, con zoom y puntos',
     'projects.mapa.s4': 'Ficha del lugar',
     'projects.mapa.s4d': 'Info de cada sitio de memoria',
 
@@ -330,19 +330,19 @@ export const TRANSLATIONS: Record<Locale, TranslationDict> = {
     'projects.mapa.subtitle':
       'Explore the places that preserve the historical memory of Necochea and Quequén.',
     'projects.mapa.desc':
-      'An interactive map of sites of remembrance in Necochea and Quequén. Choose a starting point, explore thematic layers, and discover the history behind each location.',
+      'An interactive map of sites of remembrance in Necochea and Quequén. Choose a starting point, explore thematic layers, follow guided routes stop by stop, and discover the history behind each location.\n\nThe map is built with MapLibre GL JS on open OpenFreeMap / OpenStreetMap base maps, and is designed to work well on mobile.',
     'projects.mapa.descMobile':
-      'An interactive map of sites of remembrance in Necochea and Quequén. Choose a starting point, explore thematic layers, and discover the history behind each location.',
+      'Explore sites of remembrance in Necochea and Quequén through thematic layers, guided stop-by-stop routes, and location details, on a custom map built with MapLibre GL JS and OpenStreetMap.',
     'projects.mapa.how.summary':
-      'This interactive web app brings together places connected to local history and remembrance in Necochea and Quequén. Users can choose a starting point, explore thematic map layers, and open information panels explaining each location’s history and significance.',
+      'This interactive web app brings together places connected to local history and remembrance in Necochea and Quequén. Users can choose a starting point, explore thematic map layers, follow guided routes stop by stop, and open information panels explaining each location’s history and significance.\n\nThe data is rendered with MapLibre GL JS on open base maps. A Python script generates the data for all 15 maps as JSON and converts the photos to WebP so the site loads faster.',
     'projects.mapa.how.footnote':
-      'Developed as a collaborative project within PSE at UNICEN’s Quequén campus. The interactive map connects each location with information about its role in local history and remembrance.',
+      'Developed as a collaborative project within the Socio-educational Practices program (PSE) at UNICEN’s Quequén campus. Deployed on Netlify.',
     'projects.mapa.s1': 'Starting point',
     'projects.mapa.s1d': 'Choose between Quequén, the bus terminal, and Necochea',
     'projects.mapa.s2': 'Thematic layers',
     'projects.mapa.s2d': 'Explore murals, schools, and other sites of remembrance',
-    'projects.mapa.s3': 'Interactive map',
-    'projects.mapa.s3d': 'Explore routes and location markers, and zoom in for a closer look',
+    'projects.mapa.s3': 'Guided routes',
+    'projects.mapa.s3d': 'Follow each route stop by stop, with zoom and location markers',
     'projects.mapa.s4': 'Site details',
     'projects.mapa.s4d': 'Learn about each location and its historical significance',
 
